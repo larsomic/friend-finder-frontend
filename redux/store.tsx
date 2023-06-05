@@ -1,8 +1,9 @@
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { LoginActions } from './store_type'
+import storage from 'redux-persist/lib/storage'; 
 
-const userReducer = (state = { loggedIn: false }, action) => {
+const userReducer = (state = { loggedIn: false }, action:LoginActions) => {
   switch (action.type) {
     case 'LOG_IN':
       return { ...state, loggedIn: true };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { TextField, Button, Grid, Box, Alert } from '@mui/material';
+import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import CenteredContainer from '../components/CenteredContainer';
 axios.defaults.withCredentials = true;
 
@@ -13,7 +13,7 @@ const Signup = () => {
   var [password, setPassword] = useState("");
   var [showAlert, setShowAlert] = useState(true);
   var [alertMessage, setAlertMessage] = useState("");
-  var [alertType, setAlertType] = useState("")
+  var [alertType, setAlertType] = useState<AlertColor>("error")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
