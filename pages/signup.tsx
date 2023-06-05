@@ -44,7 +44,7 @@ const Signup = () => {
     <CenteredContainer maxWidth="sm" handleSubmit={handleSubmit}>
       <Grid item xs={12}>
         <Box textAlign="center">
-          <h2>Signup</h2>
+          <h2>Sign Up</h2>
         </Box>
       </Grid>
       {showAlert && 
