@@ -1,27 +1,17 @@
-import React, { useEffect,useState } from "react";
-import axios from 'axios';
-axios.defaults.withCredentials = true;
-require('dotenv').config();
+import { useSelector } from 'react-redux';
+import type { StoreType } from '../redux/store_type';
 
-const Home = () => {
-  const [authenticated, setAuthenticated] = useState("unauthenticated");
-
-  useEffect(() => {
-    console.log(process.env.BASE_API_URL)
-    const fetchData = async () => {
-      const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL+'/api/auth/status', { withCredentials: true });
-      setAuthenticated(response.data.status)
-    };
-
-    fetchData();
-  }, [])
-
+const HomePage = () => {
+  const loggedIn = useSelector((state: StoreType) => state.loggedIn);
   return (
     <div>
-      {authenticated}
+      {loggedIn ? (
+        <h1>Welcome, you are logged in!</h1>
+      ) : (
+        <h1>Please log in.</h1>
+      )}
     </div>
   );
 };
 
-export default Home;
-
+export default HomePage;

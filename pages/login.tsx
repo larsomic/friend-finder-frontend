@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { TextField, Button, Grid, Box, Alert } from '@mui/material';
+import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import CenteredContainer from '../components/CenteredContainer';
+import { useDispatch } from 'react-redux';
+
 axios.defaults.withCredentials = true;
 
 import config from '../config';
 require('dotenv').config();
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [alertType, setAlertType] = useState("")
+  const [alertType, setAlertType] = useState<AlertColor>("error")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,13 +30,17 @@ const Login = () => {
         if (response.status == 200) {
             setAlertMessage("User successfully logged in.");
             setAlertType("success");
+            setShowAlert(true);
+            dispatch({ type: 'LOG_IN' });
+            setTimeout(handleClose, config.ALERT_TIMEOUT);
         }
       } catch (error) {
+            console.log(error)
             setAlertMessage("Error during user login.");
             setAlertType("error");
+            setShowAlert(true);
+            setTimeout(handleClose, config.ALERT_TIMEOUT);
       }
-      setShowAlert(true);
-      setTimeout(handleClose, config.ALERT_TIMEOUT);
   };
 
   const handleClose = () => {
