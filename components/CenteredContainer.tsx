@@ -1,4 +1,5 @@
-import { Container, ContainerProps, Grid, FormEventHandler } from '@mui/material';
+import { Container, ContainerProps, Grid } from '@mui/material';
+import { FormEventHandler } from 'react';
 
 interface CenteredContainerProps extends ContainerProps {
   handleSubmit: FormEventHandler;
