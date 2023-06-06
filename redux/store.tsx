@@ -9,15 +9,22 @@ const userReducer = (state = { loggedIn: false }, action:LoginActions) => {
       return { ...state, loggedIn: true };
     case 'LOG_OUT':
       return { ...state, loggedIn: false };
+<<<<<<< HEAD
     case 'SIGNED_UP':
       return { ...state, loggedIn: true };
+=======
+>>>>>>> a860dfd059d8dd22f2a535227fa29745b01a95bf
     default:
       return state;
   }
 };
 
 const rootReducer = combineReducers({
+<<<<<<< HEAD
   auth: userReducer,
+=======
+  user: userReducer,
+>>>>>>> a860dfd059d8dd22f2a535227fa29745b01a95bf
 });
 
 const persistConfig = {
