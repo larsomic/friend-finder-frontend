@@ -1,7 +1,11 @@
-export interface StoreType {
+export interface LoginActions {
+    type: 'LOG_IN' | 'LOG_OUT' | 'SIGNED_UP';
+  }
+
+interface AuthState {
     loggedIn: boolean;
 }
 
-export interface LoginActions {
-    type: 'LOG_IN' | 'LOG_OUT';
-  }
+export interface StoreType {
+    auth: AuthState;
+}

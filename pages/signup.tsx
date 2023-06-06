@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import CenteredContainer from '../components/CenteredContainer';
+import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 
 import config from '../config';
 require('dotenv').config();
 
 const Signup = () => {
+  const dispatch = useDispatch(); 
   var [name, setName] = useState("");
   var [email, setEmail] = useState("");
   var [password, setPassword] = useState("");
-  var [showAlert, setShowAlert] = useState(true);
+  var [showAlert, setShowAlert] = useState(false);
   var [alertMessage, setAlertMessage] = useState("");
   var [alertType, setAlertType] = useState<AlertColor>("error")
 
@@ -27,6 +29,7 @@ const Signup = () => {
         if (response.status == 200) {
             setAlertMessage("User succesfuly created.")
             setAlertType("success")
+            dispatch({ type: 'SIGNED_UP' });
         }
       } catch (error) {
             setAlertMessage("Error when creating user.")

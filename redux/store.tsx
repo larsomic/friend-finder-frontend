@@ -9,13 +9,15 @@ const userReducer = (state = { loggedIn: false }, action:LoginActions) => {
       return { ...state, loggedIn: true };
     case 'LOG_OUT':
       return { ...state, loggedIn: false };
+    case 'SIGNED_UP':
+      return { ...state, loggedIn: true };
     default:
       return state;
   }
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  auth: userReducer,
 });
 
 const persistConfig = {

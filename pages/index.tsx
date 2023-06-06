@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import type { StoreType } from '../redux/store_type';
 
 const HomePage = () => {
-  const loggedIn = useSelector((state: StoreType) => state.loggedIn);
+  const loggedIn = useSelector((state: StoreType) => state.auth.loggedIn);
   return (
     <div>
       {loggedIn ? (
