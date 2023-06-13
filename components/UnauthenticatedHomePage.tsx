@@ -1,7 +1,7 @@
 const UnauthenticatedHomePage = () => {
   return (
     <div>
-      You aren't logged in.
+      You are not logged in.
     </div>
   );
 };
