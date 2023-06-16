@@ -31,6 +31,14 @@ function HeaderBar() {
     setAnchorElUser(null);
   };
 
+  const handleSignUpClicked = () => {
+
+  };
+
+  const handleLogInClicked = () => {
+
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -150,7 +158,14 @@ function HeaderBar() {
                 </Menu>
             </Box>)
            : (
-            <div>Log In</div>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                <MenuItem key="Sign Up" onClick={handleSignUpClicked}>
+                  <Typography textAlign="center">Sign Up</Typography>
+                </MenuItem>
+                <MenuItem key="Log In" onClick={handleLogInClicked}>
+                  <Typography textAlign="center">Log In</Typography>
+                </MenuItem>
+            </Box>
         )}
         </Toolbar>
       </Container>
