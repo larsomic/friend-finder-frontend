@@ -1,7 +1,10 @@
+import HeaderBar from './HeaderBar'
+
 const UnauthenticatedHomePage = () => {
+  
   return (
     <div>
-      You are not logged in.
+        <HeaderBar/>
     </div>
   );
 };

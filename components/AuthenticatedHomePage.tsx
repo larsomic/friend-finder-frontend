@@ -1,7 +1,9 @@
+import HeaderBar from './HeaderBar'
+
 const AuthenticatedHomePage = () => {
   return (
     <div>
-      You are logged in.
+      <HeaderBar/>
     </div>
   );
 };
