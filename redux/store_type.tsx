@@ -8,11 +8,15 @@ interface AuthState {
 
 export interface UserActions {
     type: 'GET_USER_INFO' | 'UPDATE_USER_INFO';
+    payload?: {
+      name: string;
+      email: string;
+    };
   }
 
 interface UserState {
-    name: string;
-    email: string;
+    name: string | null;
+    email: string | null;
 }
 
 export interface StoreType {

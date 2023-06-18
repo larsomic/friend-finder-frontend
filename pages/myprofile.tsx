@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import cookie from 'cookie';
 
 import axios from 'axios';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import CenteredContainer from '../components/CenteredContainer';
 import { useDispatch, useSelector } from 'react-redux';
+import { StoreType } from '../redux/store_type';
+
 
 axios.defaults.withCredentials = true;
 
@@ -26,10 +28,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { /* your props here */ } };
 };
 
-const MyProfile = (props) => {
+const MyProfile: NextPage = (props) => {
     const dispatch = useDispatch();
 
-    const user = useSelector(state => state.user);
+    const user = useSelector((state: StoreType) => state.user);
     const [email, setEmail] = useState(user.email);
     const [name, setName] = useState(user.name);
 

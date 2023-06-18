@@ -19,9 +19,9 @@ const authReducer = (state = { loggedIn: false }, action: LoginActions) => {
 const userReducer = (state = { name: null, email: null }, action: UserActions) => {
   switch (action.type) {
     case 'GET_USER_INFO':
-      return { ...state, name: action.payload.name, email: action.payload.email };
+      return { ...state, name: action.payload?.name, email: action.payload?.email };
     case 'UPDATE_USER_INFO':
-      return { ...state, name: action.payload.name, email: action.payload.email };
+      return { ...state, name: action.payload?.name, email: action.payload?.email };
     default:
       return state;
   }
@@ -43,6 +43,6 @@ export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
 
 export const updateUser = (name: string, email: string) => ({
-  type: 'GET_USER_INFO',
+  type: 'GET_USER_INFO' as const, 
   payload: { name, email },
 });
