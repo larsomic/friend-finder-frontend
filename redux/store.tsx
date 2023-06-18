@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import { LoginActions } from './store_type'
-import storage from 'redux-persist/lib/storage'; 
+import storage from 'redux-persist/lib/storage';
+import { LoginActions, UserActions, StoreType } from './store_type';
 
-const userReducer = (state = { loggedIn: false }, action:LoginActions) => {
+const authReducer = (state = { loggedIn: false }, action: LoginActions) => {
   switch (action.type) {
     case 'LOG_IN':
       return { ...state, loggedIn: true };
@@ -16,8 +16,20 @@ const userReducer = (state = { loggedIn: false }, action:LoginActions) => {
   }
 };
 
+const userReducer = (state = { name: null, email: null }, action: UserActions) => {
+  switch (action.type) {
+    case 'GET_USER_INFO':
+      return { ...state, name: action.payload?.name, email: action.payload?.email };
+    case 'UPDATE_USER_INFO':
+      return { ...state, name: action.payload?.name, email: action.payload?.email };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
-  auth: userReducer,
+  auth: authReducer,
+  user: userReducer,
 });
 
 const persistConfig = {
@@ -29,3 +41,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);
+
+export const updateUser = (name: string, email: string) => ({
+  type: 'GET_USER_INFO' as const, 
+  payload: { name, email },
+});

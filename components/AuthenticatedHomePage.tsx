@@ -5,7 +5,6 @@ const AuthenticatedHomePage = () => {
   return (
     <div>
       <HeaderBar/>
-      You are logged in.
       <BottomInfoBar/>
     </div>
   );

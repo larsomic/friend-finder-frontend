@@ -6,7 +6,6 @@ const UnauthenticatedHomePage = () => {
   return (
     <div>
       <HeaderBar/>
-      You are not logged in.
       <BottomInfoBar/>
     </div>
   );
