@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
 import { Menu as MenuIcon, Adb as AdbIcon } from '@mui/icons-material';
@@ -8,13 +8,13 @@ import type { StoreType } from '../redux/store_type';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
-
-const pages = ['Mission', 'Safety', 'Support'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { PopupContext } from '../contexts/PopupContext';
 
 function HeaderBar() {
   const router = useRouter();
   const state = useSelector((state: StoreType) => state);
+  const { isPopupOpen, openPopup } = useContext(PopupContext);
+
   const loggedIn = state.auth.loggedIn
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -28,6 +28,7 @@ function HeaderBar() {
   };
 
   const handleCloseNavMenu = () => {
+    openPopup()
     setAnchorElNav(null);
   };
 
@@ -46,6 +47,14 @@ function HeaderBar() {
   const handleLogoutClicked = () => {
     router.push('/logout')
   }
+
+  const pages = ['Mission', 'Safety', 'Support'];
+  const settings = {
+    'Profile': () => openPopup('profile'),
+    'Account': handleCloseUserMenu,
+    'Dashboard': handleCloseUserMenu,
+    'Logout': handleLogoutClicked,
+  } 
 
   return (
     <AppBar position="static">
@@ -158,10 +167,10 @@ function HeaderBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
                 >
-                {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogoutClicked : handleCloseUserMenu}>
+                {Object.entries(settings).map(([setting, handleClick]) => (
+                  <MenuItem key={setting} onClick={handleClick}>
                     <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
+                  </MenuItem>
                 ))}
                 </Menu>
             </Box>)

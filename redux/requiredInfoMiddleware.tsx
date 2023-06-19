@@ -8,14 +8,16 @@ const requiredInfoMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyActi
     next(action); 
 
     const state = store.getState();
-    if (!state.user.name) {
-      try {
-        const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/user");
-        if (response.status == 200) {
-          store.dispatch(setUserInfo(response.data.name, response.data.email ));
+    if (state.auth.loggedIn) {
+      if (!state.user.name) {
+        try {
+          const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/user");
+          if (response.status == 200) {
+            store.dispatch(setUserInfo(response.data.name, response.data.email ));
+          }
+        } catch (error) {
+          console.error("Error fetching user info:", error);
         }
-      } catch (error) {
-        console.error("Error fetching user info:", error);
       }
     }
   };

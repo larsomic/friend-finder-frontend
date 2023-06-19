@@ -1,11 +1,9 @@
+// CenteredContainer.tsx
 import { Container, ContainerProps, Grid } from '@mui/material';
-import { FormEventHandler } from 'react';
 
-interface CenteredContainerProps extends ContainerProps {
-  handleSubmit: FormEventHandler;
-}
+interface CenteredContainerProps extends ContainerProps {}
 
-const CenteredContainer: React.FC<CenteredContainerProps> = ({ children, handleSubmit, ...props }) => {
+const CenteredContainer: React.FC<CenteredContainerProps> = ({ children, ...props }) => {
   return (
     <Container
       {...props}
@@ -17,17 +15,15 @@ const CenteredContainer: React.FC<CenteredContainerProps> = ({ children, handleS
         ...props.sx,
       }}
     >
-      <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          {children}
-        </Grid>
-      </form>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        {children}
+      </Grid>
     </Container>
   );
 };
