@@ -8,12 +8,14 @@ import type { StoreType } from '../redux/store_type';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
+
 const pages = ['Mission', 'Safety', 'Support'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function HeaderBar() {
-  const loggedIn = useSelector((state: StoreType) => state.auth.loggedIn);
   const router = useRouter();
+  const state = useSelector((state: StoreType) => state);
+  const loggedIn = state.auth.loggedIn
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -137,7 +139,7 @@ function HeaderBar() {
             <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" />
                 </IconButton>
                 </Tooltip>
                 <Menu

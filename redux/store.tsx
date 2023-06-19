@@ -1,7 +1,8 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware  } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { LoginActions, UserActions, StoreType } from './store_type';
+import requiredInfoMiddleware from './requiredInfoMiddleware';
 
 const authReducer = (state = { loggedIn: false }, action: LoginActions) => {
   switch (action.type) {
@@ -39,10 +40,5 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer);
+export const store = createStore(persistedReducer, applyMiddleware(requiredInfoMiddleware));
 export const persistor = persistStore(store);
-
-export const updateUser = (name: string, email: string) => ({
-  type: 'GET_USER_INFO' as const, 
-  payload: { name, email },
-});
