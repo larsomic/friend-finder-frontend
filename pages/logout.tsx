@@ -2,10 +2,13 @@ require('dotenv').config();
 import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+
 axios.defaults.withCredentials = true;
 
-const Login = () => {
+const Logout = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,6 +18,7 @@ const Login = () => {
       } catch (error) {
         console.error("An error occurred while loggoing out.", error);
       }
+    router.push('/');
   };
 
   return (
@@ -24,4 +28,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Logout;

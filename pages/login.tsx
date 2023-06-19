@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import CenteredContainer from '../components/CenteredContainer';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
 axios.defaults.withCredentials = true;
 
@@ -16,6 +17,7 @@ const Login = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState<AlertColor>("error")
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ const Login = () => {
             setShowAlert(true);
             dispatch({ type: 'LOG_IN' });
             setTimeout(handleClose, config.ALERT_TIMEOUT);
+            router.push('/');
         }
       } catch (error) {
             console.log(error)
