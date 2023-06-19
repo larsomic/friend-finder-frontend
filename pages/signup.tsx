@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import CenteredContainer from '../components/CenteredContainer';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 axios.defaults.withCredentials = true;
 
 import config from '../config';
@@ -16,6 +17,7 @@ const Signup = () => {
   var [showAlert, setShowAlert] = useState(false);
   var [alertMessage, setAlertMessage] = useState("");
   var [alertType, setAlertType] = useState<AlertColor>("error")
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ const Signup = () => {
             setAlertMessage("User succesfuly created.")
             setAlertType("success")
             dispatch({ type: 'SIGNED_UP' });
+            router.push('/');
         }
       } catch (error) {
             setAlertMessage("Error when creating user.")

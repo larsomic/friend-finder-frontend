@@ -6,12 +6,14 @@ import { Menu as MenuIcon, Adb as AdbIcon } from '@mui/icons-material';
 import type { StoreType } from '../redux/store_type';
 
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 const pages = ['Mission', 'Safety', 'Support'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function HeaderBar() {
   const loggedIn = useSelector((state: StoreType) => state.auth.loggedIn);
+  const router = useRouter();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -32,12 +34,16 @@ function HeaderBar() {
   };
 
   const handleSignUpClicked = () => {
-
+    router.push('/signup');
   };
 
   const handleLogInClicked = () => {
-
+    router.push('/login');
   };
+
+  const handleLogoutClicked = () => {
+    router.push('/logout')
+  }
 
   return (
     <AppBar position="static">
@@ -151,7 +157,7 @@ function HeaderBar() {
                 onClose={handleCloseUserMenu}
                 >
                 {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogoutClicked : handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                 ))}
