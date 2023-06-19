@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { setUserInfo } from './userReducer';
+import { MiddlewareAPI, Dispatch, AnyAction } from 'redux';
 
 axios.defaults.withCredentials = true;
 
-const requiredInfoMiddleware = store => next => async action => {
+const requiredInfoMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     next(action); 
 
     const state = store.getState();
