@@ -13,7 +13,11 @@ import { PopupContext } from '../contexts/PopupContext';
 function HeaderBar() {
   const router = useRouter();
   const state = useSelector((state: StoreType) => state);
-  const { isPopupOpen, openPopup } = useContext(PopupContext);
+  const popupContext = useContext(PopupContext);
+  if (!popupContext) {
+    throw new Error("PopupContext is undefined, make sure you're using the PopupProvider");
+  }
+const { isPopupOpen, openPopup } = popupContext;
 
   const loggedIn = state.auth.loggedIn
 
@@ -28,7 +32,7 @@ function HeaderBar() {
   };
 
   const handleCloseNavMenu = () => {
-    openPopup()
+    openPopup('profile')
     setAnchorElNav(null);
   };
 

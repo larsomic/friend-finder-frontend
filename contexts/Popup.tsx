@@ -19,7 +19,11 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const Popup: React.FC = () => {
-  const { isPopupOpen, popupContent, closePopup } = useContext(PopupContext);
+  const popupContext = useContext(PopupContext);
+  if (!popupContext) {
+    throw new Error("PopupContext is undefined, make sure you're using the PopupProvider");
+  }
+  const { isPopupOpen, popupContent, closePopup } = popupContext;
 
   const renderContent = () => {
     switch (popupContent) {

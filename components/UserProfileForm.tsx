@@ -3,7 +3,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 
-const UserProfileForm = ({ currentName, currentEmail }) => {
+interface UserProfileFormProps {
+  currentName: string;
+  currentEmail: string;
+}
+
+const UserProfileForm = ({ currentName, currentEmail }: UserProfileFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState(currentName);
   const [email, setEmail] = useState(currentEmail);

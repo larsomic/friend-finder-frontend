@@ -31,11 +31,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const MyProfile: NextPage = (props) => {
   const user = useSelector((state: StoreType) => state.user);
-  const { name, email } = user;
+  const { name = '', email='' } = user;
+  const currentName = name === null ? '' : name;
+  const currentEmail = email === null ? '' : email;
 
   return (
     <CenteredContainer maxWidth="sm">
-      <UserProfileForm currentName={name} currentEmail={email}/>
+      <UserProfileForm currentName={currentName} currentEmail={currentEmail}/>
     </CenteredContainer>
   );
 };
