@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { PopupContext } from './PopupContext';
 import ProfilePopupContent from '../components/ProfilePopupContent';
+import LogoutPopupContent from '../components/LogoutPopupContent';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -29,6 +30,8 @@ const Popup: React.FC = () => {
     switch (popupContent) {
       case 'profile':
         return <ProfilePopupContent />;
+      case 'logout':
+        return <LogoutPopupContent />;
       // case 'account':
       //   return <AccountPopupContent />;
       // case 'dashboard':
@@ -40,7 +43,6 @@ const Popup: React.FC = () => {
 
   return (
     <Dialog open={isPopupOpen} TransitionComponent={Transition} onClose={closePopup}>
-      <DialogTitle>{popupContent}</DialogTitle>
       <DialogContent>
         {renderContent()}
       </DialogContent>
