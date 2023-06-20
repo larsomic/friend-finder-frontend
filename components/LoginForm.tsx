@@ -6,7 +6,11 @@ import config from '../config';
 
 axios.defaults.withCredentials = true;
 
-const LoginForm = ({ onLogin }) => {
+interface LoginFormProps {
+  onLogin: () => void;
+}
+  
+const LoginForm = ({ onLogin }: LoginFormProps) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

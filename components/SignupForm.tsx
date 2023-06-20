@@ -6,7 +6,11 @@ import config from '../config';
 
 axios.defaults.withCredentials = true;
 
-const SignupForm = ({ onSignup }) => {
+interface SignupFormProps {
+    onSignup: () => void;
+  }
+    
+const SignupForm = ({ onSignup }: SignupFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
