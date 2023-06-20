@@ -5,15 +5,9 @@ import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import config from '../config';
 
 axios.defaults.withCredentials = true;
-
-interface LoginFormProps {
-  onLogin: () => void;
-}
   
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const LogoutForm = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState<AlertColor>("error");
@@ -43,4 +37,4 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   );
 };
 
-export default LoginForm;
+export default LogoutForm;

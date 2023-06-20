@@ -40,11 +40,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+// Comment this in to see redux in chrome.
+// const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+// export const store = createStore(
+//   persistedReducer,
+//   composeEnhancers(applyMiddleware(requiredInfoMiddleware))
+// );
 
-export const store = createStore(
-  persistedReducer,
-  composeEnhancers(applyMiddleware(requiredInfoMiddleware))
-);
+// And comment out this line
+export const store = createStore(persistedReducer, applyMiddleware(requiredInfoMiddleware));
 
 export const persistor = persistStore(store);
