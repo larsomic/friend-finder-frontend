@@ -32,7 +32,6 @@ const { isPopupOpen, openPopup } = popupContext;
   };
 
   const handleCloseNavMenu = () => {
-    openPopup('profile')
     setAnchorElNav(null);
   };
 
@@ -54,10 +53,10 @@ const { isPopupOpen, openPopup } = popupContext;
 
   const pages = ['Mission', 'Safety', 'Support'];
   const settings = {
-    'Profile': () => openPopup('profile'),
+    'Profile': () => {openPopup('profile');handleCloseUserMenu();},
     'Account': handleCloseUserMenu,
     'Dashboard': handleCloseUserMenu,
-    'Logout': handleLogoutClicked,
+    'Logout': () => {openPopup('logout');handleCloseUserMenu();},
   } 
 
   return (
