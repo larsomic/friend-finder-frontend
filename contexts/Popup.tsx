@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { PopupContext } from './PopupContext';
 import ProfilePopupContent from '../components/ProfilePopupContent';
 import LogoutPopupContent from '../components/LogoutPopupContent';
+import LoginPopupContent from '../components/LoginPopupContent';
+import SignupPopupContent from '../components/SignupPopupContent';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -31,7 +33,11 @@ const Popup: React.FC = () => {
       case 'profile':
         return <ProfilePopupContent />;
       case 'logout':
-        return <LogoutPopupContent />;
+        return <LogoutPopupContent />;      
+      case 'login':
+        return <LoginPopupContent />;      
+      case 'signup':
+        return <SignupPopupContent />;
       // case 'account':
       //   return <AccountPopupContent />;
       // case 'dashboard':
