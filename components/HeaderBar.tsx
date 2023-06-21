@@ -59,6 +59,11 @@ const { isPopupOpen, openPopup } = popupContext;
     'Logout': () => {openPopup('logout');handleCloseUserMenu();},
   } 
 
+  const loggedOutItems = {
+    'Sign Up': () => {openPopup('signup');},
+    'Login': () => {openPopup('login');},
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -179,12 +184,11 @@ const { isPopupOpen, openPopup } = popupContext;
             </Box>)
            : (
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                <MenuItem key="Sign Up" onClick={handleSignUpClicked}>
-                  <Typography textAlign="center">Sign Up</Typography>
+              {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
+                <MenuItem key={setting} onClick={handleClick}>
+                  <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-                <MenuItem key="Log In" onClick={handleLogInClicked}>
-                  <Typography textAlign="center">Log In</Typography>
-                </MenuItem>
+              ))}
             </Box>
         )}
         </Toolbar>
