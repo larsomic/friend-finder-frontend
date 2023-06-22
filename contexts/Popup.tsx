@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { PopupContext } from './PopupContext';
-import ProfilePopupContent from '../components/ProfilePopupContent';
-import LogoutPopupContent from '../components/LogoutPopupContent';
-import LoginPopupContent from '../components/LoginPopupContent';
-import SignupPopupContent from '../components/SignupPopupContent';
+import ProfilePopupContent from '../components/popups/ProfilePopupContent';
+import LogoutPopupContent from '../components/popups/LogoutPopupContent';
+import LoginPopupContent from '../components/popups/LoginPopupContent';
+import SignupPopupContent from '../components/popups/SignupPopupContent';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';

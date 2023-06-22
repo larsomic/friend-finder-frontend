@@ -1,4 +1,4 @@
-import SignupForm from '../components/SignupForm';
+import SignupForm from '../components/forms/SignupForm';
 import { useRouter } from 'next/router';
 import CenteredContainer from '../components/CenteredContainer';
 

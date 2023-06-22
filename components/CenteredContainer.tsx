@@ -1,4 +1,3 @@
-// CenteredContainer.tsx
 import { Container, ContainerProps, Grid } from '@mui/material';
 
 interface CenteredContainerProps extends ContainerProps {}

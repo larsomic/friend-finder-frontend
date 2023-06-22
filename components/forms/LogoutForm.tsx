@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
-import config from '../config';
+import config from '../../config';
 
 axios.defaults.withCredentials = true;
   

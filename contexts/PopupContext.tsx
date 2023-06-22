@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 
 export type PopupType = 'profile' | 'account' | 'dashboard' | 'logout' | 'signup' | 'login';
 
@@ -10,3 +10,5 @@ interface PopupContextType {
 }
 
 export const PopupContext = createContext<PopupContextType | undefined>(undefined);
+
+
