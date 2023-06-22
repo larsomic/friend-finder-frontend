@@ -1,8 +1,6 @@
-import SignupForm from './SignupForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreType } from '../redux/store_type';
+import SignupForm from '../forms/SignupForm';
 import React, { useContext } from 'react';
-import { PopupContext } from '../contexts/PopupContext';
+import { PopupContext } from '../../contexts/PopupContext';
 
 const SignupPopupContent = () => {
   const popupContext = useContext(PopupContext);

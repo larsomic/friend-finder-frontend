@@ -3,12 +3,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { createWrapper } from 'next-redux-wrapper';
 import { store, persistor } from '../redux/store';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
-import { setUserInfo } from '../redux/userReducer'
 import { PopupProvider } from '../contexts/PopupProvider';
-import axios from 'axios';
-
-import '../styles/global.css';
+import '../styles/global.css'; // Keep this
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (

@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
-import config from '../config';
+import config from '../../config';
 
 axios.defaults.withCredentials = true;
 
-interface LoginFormProps {
-  onLogin: () => void;
-}
-  
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+interface SignupFormProps {
+    onSignup: () => void;
+  }
+    
+const SignupForm = ({ onSignup }: SignupFormProps) => {
   const dispatch = useDispatch();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -22,27 +23,27 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
     e.preventDefault();
 
     const userData = {
-        email: email,
-        password: password,
+        name,
+        email,
+        password,
     };
 
     try {
-        const response = await axios.post(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/login", userData);
+        const response = await axios.post(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/signup", userData);
         if (response.status == 200) {
-            setAlertMessage("User successfully logged in.");
+            setAlertMessage("User successfully created.");
             setAlertType("success");
             setShowAlert(true);
-            dispatch({ type: 'LOG_IN' });
+            dispatch({ type: 'SIGNED_UP' });
             setTimeout(handleClose, config.ALERT_TIMEOUT);
-            onLogin();
+            onSignup();
         }
-      } catch (error) {
-            console.log(error)
-            setAlertMessage("Error during user login.");
-            setAlertType("error");
-            setShowAlert(true);
-            setTimeout(handleClose, config.ALERT_TIMEOUT);
-      }
+    } catch (error) {
+        setAlertMessage("Error when creating user.");
+        setAlertType("error");
+        setShowAlert(true);
+        setTimeout(handleClose, config.ALERT_TIMEOUT);
+    }
   };
 
   const handleClose = () => {
@@ -54,25 +55,28 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <h2>Login</h2>
+            <h2>Sign Up</h2>
           </Box>
         </Grid>
         {showAlert && 
           <Grid item xs={12}>
-              <Alert severity={alertType} onClose={handleClose}>
-                  {alertMessage}
-              </Alert>
+            <Alert severity={alertType} onClose={handleClose}>
+              {alertMessage}
+            </Alert>
           </Grid>
         }
         <Grid item xs={12}>
-          <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth type="email" value={email} autoFocus onChange={(e) => setEmail(e.target.value)}/>
+          <TextField id="outlined-basic" label="Name" variant="outlined" fullWidth type="text" value={name} autoFocus onChange={(e) => setName(e.target.value)}/>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
         </Grid>
         <Grid item xs={12}>
           <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth type="password" value={password} autoComplete='new-password' onChange={(e) => setPassword(e.target.value)}/>
         </Grid>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <Button variant="contained" type="submit">Login</Button>
+            <Button variant="contained" type="submit">Sign Up</Button>
           </Box>
         </Grid>
       </Grid>
@@ -80,4 +84,4 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
   );
 };
 
-export default LoginForm;
+export default SignupForm;

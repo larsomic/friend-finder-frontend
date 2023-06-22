@@ -8,7 +8,7 @@ import CenteredContainer from '../components/CenteredContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../redux/store_type';
 
-import UserProfileForm from '../components/UserProfileForm';
+import UserProfileForm from '../components/forms/UserProfileForm';
 
 axios.defaults.withCredentials = true;
 

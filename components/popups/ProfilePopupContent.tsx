@@ -1,6 +1,6 @@
-import UserProfileForm from './UserProfileForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { StoreType } from '../redux/store_type';
+import UserProfileForm from '../forms/UserProfileForm';
+import { useSelector } from 'react-redux';
+import { StoreType } from '../../redux/store_type';
 
 const ProfilePopupContent = () => {
   const user = useSelector((state: StoreType) => state.user);
