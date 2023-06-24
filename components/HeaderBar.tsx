@@ -39,22 +39,22 @@ const { isPopupOpen, openPopup } = popupContext;
     setAnchorElUser(null);
   };
 
-  const handleSignUpClicked = () => {
-    router.push('/signup');
-  };
+  // const handleSignUpClicked = () => {
+  //   router.push('/signup');
+  // };
 
-  const handleLogInClicked = () => {
-    router.push('/login');
-  };
+  // const handleLogInClicked = () => {
+  //   router.push('/login');
+  // };
 
-  const handleLogoutClicked = () => {
-    router.push('/logout')
-  }
+  // const handleLogoutClicked = () => {
+  //   router.push('/logout')
+  // }
 
   const pages = ['Mission', 'Safety', 'Support'];
   const settings = {
-    'Profile': () => {openPopup('profile');handleCloseUserMenu();},
-    'Account': handleCloseUserMenu,
+    'Account': () => {openPopup('account');handleCloseUserMenu();},
+    'Preferences':() => {openPopup('friend-preferences');handleCloseUserMenu();},
     'Dashboard': handleCloseUserMenu,
     'Logout': () => {openPopup('logout');handleCloseUserMenu();},
   } 

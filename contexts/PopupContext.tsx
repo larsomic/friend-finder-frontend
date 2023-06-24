@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export type PopupType = 'profile' | 'account' | 'dashboard' | 'logout' | 'signup' | 'login';
+export type PopupType = 'account' | 'preferences' | 'dashboard' | 'logout' | 'signup' | 'login' | 'friend-preferences';
 
 interface PopupContextType {
   isPopupOpen: boolean;
@@ -10,5 +10,3 @@ interface PopupContextType {
 }
 
 export const PopupContext = createContext<PopupContextType | undefined>(undefined);
-
-

@@ -3,12 +3,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 
-interface UserProfileFormProps {
+interface UserAccountFormProps {
   currentName: string;
   currentEmail: string;
 }
 
-const UserProfileForm = ({ currentName, currentEmail }: UserProfileFormProps) => {
+const UserAccountForm = ({ currentName, currentEmail }: UserAccountFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState(currentName);
   const [email, setEmail] = useState(currentEmail);
@@ -48,7 +48,7 @@ const UserProfileForm = ({ currentName, currentEmail }: UserProfileFormProps) =>
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <h2>Edit User</h2>
+            <h2>Edit Account</h2>
           </Box>
         </Grid>
         {showAlert && (
@@ -82,7 +82,7 @@ const UserProfileForm = ({ currentName, currentEmail }: UserProfileFormProps) =>
         <Grid item xs={12}>
           <Box textAlign="center">
             <Button variant="contained" type="submit">
-              Edit User
+              Edit Account
             </Button>
           </Box>
         </Grid>
@@ -91,4 +91,4 @@ const UserProfileForm = ({ currentName, currentEmail }: UserProfileFormProps) =>
   );
 };
 
-export default UserProfileForm;
+export default UserAccountForm;
