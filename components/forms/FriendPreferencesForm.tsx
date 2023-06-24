@@ -19,14 +19,9 @@ import { attractedToOptions, religionOptions } from '../../options';
 axios.defaults.withCredentials = true;
 
 interface FriendPreferencesFormProps {
-  currentName: string;
-  currentEmail: string;
 }
 
-const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({
-  currentName,
-  currentEmail,
-}) => {
+const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');

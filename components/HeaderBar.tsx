@@ -52,10 +52,11 @@ const { isPopupOpen, openPopup } = popupContext;
   // }
 
   const pages = ['Mission', 'Safety', 'Support'];
+  
   const settings = {
     'Account': () => {openPopup('account');handleCloseUserMenu();},
     'Preferences':() => {openPopup('friend-preferences');handleCloseUserMenu();},
-    'Dashboard': handleCloseUserMenu,
+    'Settings': () => {openPopup('settings');handleCloseUserMenu();},
     'Logout': () => {openPopup('logout');handleCloseUserMenu();},
   } 
 

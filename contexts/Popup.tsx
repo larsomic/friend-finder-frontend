@@ -5,6 +5,7 @@ import FriendPreferencesPopupContent from '../components/popups/FriendPreference
 import LogoutPopupContent from '../components/popups/LogoutPopupContent';
 import LoginPopupContent from '../components/popups/LoginPopupContent';
 import SignupPopupContent from '../components/popups/SignupPopupContent';
+import SettingsPopupContent from '../components/popups/SettingsPopupContent';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -40,8 +41,8 @@ const Popup: React.FC = () => {
         return <SignupPopupContent />;
       case 'friend-preferences':
          return <FriendPreferencesPopupContent />;
-      // case 'dashboard':
-      //   return <DashboardPopupContent />;
+      case 'settings':
+        return <SettingsPopupContent />;
       default:
         return null;
     }
