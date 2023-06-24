@@ -18,12 +18,15 @@ import { attractedToOptions, religionOptions } from '../../options';
 
 axios.defaults.withCredentials = true;
 
-interface FriendPreferencesFormFormProps {
-  onLogin: () => void;
+interface FriendPreferencesFormProps {
+  currentName: string;
+  currentEmail: string;
 }
 
-const FriendPreferencesForm = ({ onLogin }: FriendPreferencesFormFormProps) => {
-  const dispatch = useDispatch();
+const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({
+  currentName,
+  currentEmail,
+}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');
@@ -67,10 +70,12 @@ const FriendPreferencesForm = ({ onLogin }: FriendPreferencesFormFormProps) => {
   };
 
   const handleBlur = () => {
-    if (miles < 1) {
-      setMiles(1);
-    } else if (miles > 100) {
-      setMiles(100);
+    if (typeof miles === 'number') {
+      if (miles < 1) {
+        setMiles(1);
+      } else if (miles > 100) {
+        setMiles(100);
+      }
     }
   };
 
@@ -164,7 +169,7 @@ const FriendPreferencesForm = ({ onLogin }: FriendPreferencesFormFormProps) => {
             label="I'm interested in"
             options={attractedToOptions}
             value={attractedTo}
-            onChange={setAttractedTo}
+            onChange={(value: string[] | string) => setAttractedTo(value as string[])}
           />
         </Grid>
         <Grid item xs={12}>
@@ -172,7 +177,7 @@ const FriendPreferencesForm = ({ onLogin }: FriendPreferencesFormFormProps) => {
             label="Religion"
             options={religionOptions}
             value={religion}
-            onChange={setReligion}
+            onChange={(value: string[] | string) => setReligion(value as string[])}
           />
         </Grid>
         <Grid item xs={12}>
