@@ -19,7 +19,19 @@ interface UserState {
     email: string | null;
 }
 
+export interface SettingsActions {
+  type: 'GET_USER_SETTINGS' | 'UPDATE_USER_SETTINGS';
+  payload?: {
+    darkMode: boolean;
+  };
+}
+
+interface SettingsState {
+  darkMode: boolean | null;
+}
+
 export interface StoreType {
     auth: AuthState;
     user: UserState;
+    settings: SettingsState;
 }

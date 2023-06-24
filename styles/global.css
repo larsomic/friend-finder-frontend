@@ -1,4 +1,6 @@
 :root {
+  --permanent-color-1: #000000;
+  --permanent-color-2: #ffffff;
   --light-dark-color-1: #000000;
   --light-dark-color-2: #ffffff;
   color: var(--light-dark-color-1);
