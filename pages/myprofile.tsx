@@ -8,7 +8,7 @@ import CenteredContainer from '../components/CenteredContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '../redux/store_type';
 
-import UserProfileForm from '../components/forms/UserProfileForm';
+import UserAccountForm from '../components/forms/UserAccountForm';
 
 axios.defaults.withCredentials = true;
 
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { /* your props here */ } };
 };
 
-const MyProfile: NextPage = (props) => {
+const MyAccount: NextPage = (props) => {
   const user = useSelector((state: StoreType) => state.user);
   const { name = '', email='' } = user;
   const currentName = name === null ? '' : name;
@@ -37,9 +37,9 @@ const MyProfile: NextPage = (props) => {
 
   return (
     <CenteredContainer maxWidth="sm">
-      <UserProfileForm currentName={currentName} currentEmail={currentEmail}/>
+      <UserAccountForm currentName={currentName} currentEmail={currentEmail}/>
     </CenteredContainer>
   );
 };
 
-export default MyProfile;
+export default MyAccount;

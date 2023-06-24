@@ -1,0 +1,2 @@
+export const attractedToOptions = ['Males', 'Females', 'Other'];
+export const religionOptions = ['Agnostic', 'Atheist', 'Buddhist', 'Catholic', 'Christian', 'Hindu', 'Jewish', 'Muslim', 'Sikh', 'Spritual', 'Other'];

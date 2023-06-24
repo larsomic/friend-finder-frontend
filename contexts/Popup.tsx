@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { PopupContext } from './PopupContext';
-import ProfilePopupContent from '../components/popups/ProfilePopupContent';
+import AccountPopupContent from '../components/popups/AccountPopupContent';
+import FriendPreferencesPopupContent from '../components/popups/FriendPreferencesPopupContent';
 import LogoutPopupContent from '../components/popups/LogoutPopupContent';
 import LoginPopupContent from '../components/popups/LoginPopupContent';
 import SignupPopupContent from '../components/popups/SignupPopupContent';
@@ -29,16 +30,16 @@ const Popup: React.FC = () => {
 
   const renderContent = () => {
     switch (popupContent) {
-      case 'profile':
-        return <ProfilePopupContent />;
+      case 'account':
+        return <AccountPopupContent />;
       case 'logout':
         return <LogoutPopupContent />;      
       case 'login':
         return <LoginPopupContent />;      
       case 'signup':
         return <SignupPopupContent />;
-      // case 'account':
-      //   return <AccountPopupContent />;
+      case 'friend-preferences':
+         return <FriendPreferencesPopupContent />;
       // case 'dashboard':
       //   return <DashboardPopupContent />;
       default:
