@@ -22,7 +22,6 @@ const requiredMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>)
     next(action); 
 
     const state = store.getState();
-    console.log(state)
     if (state.auth.loggedIn) {
       if (!state.user.name) {
         try {
