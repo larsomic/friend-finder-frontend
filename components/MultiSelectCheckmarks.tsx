@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   FormControl,
   OutlinedInput,
@@ -14,7 +14,7 @@ interface MultiSelectCheckmarksProps {
   label: string;
   options: string[];
   value: string[];
-  onChange: (value: string[] | string) => void;
+  onChange: (value: string[]) => void;
 }
 
 const MultiSelectCheckmarks: React.FC<MultiSelectCheckmarksProps> = ({
@@ -23,32 +23,26 @@ const MultiSelectCheckmarks: React.FC<MultiSelectCheckmarksProps> = ({
   value,
   onChange,
 }) => {
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+  const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
-  const handleMultiSelectChange = (event: SelectChangeEvent<string[] | string>) => {
-    const { value } = event.target;
+  React.useEffect(() => {
+    setSelectedOptions(value);
+  }, [value]);
 
-    if (typeof value === 'string') {
-      if (value === 'Everyone') {
-        if (options.length === value.length) {
-          onChange([]);
-        } else {
-          onChange(options);
-        }
+  const handleMultiSelectChange = (event: SelectChangeEvent<string[]>, child: ReactNode) => {
+    const selectedValues = event.target.value as string[];
+
+    if (selectedValues.includes('Everyone')) {
+      if (selectedValues.length === options.length + 1) {
+        setSelectedOptions([]); // Deselect all options
+        onChange([]); // Notify parent component
       } else {
-        onChange([value]);
+        setSelectedOptions(options); // Select all options
+        onChange(options); // Notify parent component
       }
-    } else if (Array.isArray(value)) {
-      onChange(value);
+    } else {
+      setSelectedOptions(selectedValues); // Update selected options
+      onChange(selectedValues); // Notify parent component
     }
   };
 
@@ -59,21 +53,20 @@ const MultiSelectCheckmarks: React.FC<MultiSelectCheckmarksProps> = ({
         labelId="multi-select-checkbox-label"
         id="multi-select-checkbox"
         multiple
-        value={value}
+        value={selectedOptions}
         onChange={handleMultiSelectChange}
         input={<OutlinedInput label={label} />}
         renderValue={(selected) =>
-          selected.length === options.length ? 'Everyone' : selected.join(', ')
+          selected.length === options.length ? 'Everyone' : (selected as string[]).join(', ')
         }
-        MenuProps={MenuProps}
       >
         <MenuItem value="Everyone">
-          <Checkbox checked={value.length === options.length} />
+          <Checkbox checked={selectedOptions.length === options.length} />
           <ListItemText primary="Everyone" />
         </MenuItem>
         {options.map((option) => (
           <MenuItem key={option} value={option}>
-            <Checkbox checked={value.indexOf(option) > -1} />
+            <Checkbox checked={selectedOptions.indexOf(option) > -1} />
             <ListItemText primary={option} />
           </MenuItem>
         ))}
