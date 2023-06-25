@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import SettingsForm from '../components/forms/SettingsForm';
+import { useRouter } from 'next/router';
+import CenteredContainer from '../components/CenteredContainer';
 
+const Settings = () => {
+  const router = useRouter();
 
-const Signup = () => {
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    changeLightDarkMode();
+  const handleLogin = () => {
+    router.push('/');
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <button type="submit">Dark Mode</button>
-      </form>
-    </div>
+    <CenteredContainer maxWidth="sm">
+      <SettingsForm onSuccess={handleLogin} />
+    </CenteredContainer>
   );
 };
 
-export default Signup;
+export default Settings;

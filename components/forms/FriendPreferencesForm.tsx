@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import {
   Typography,
   Button,
@@ -33,7 +32,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = () => {
   useEffect(() => {
     const fetchUserPreferences = async () => {
       try {
-        const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/userfriendpreferences');
+        const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/friendpreferences');
         const userPreferences = response.data;
         setInPersonPreference(userPreferences.inPersonPreference || 'inperson');
         setMiles(userPreferences.miles || 30);
@@ -85,7 +84,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = () => {
     };
 
     try {
-      await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/userfriendpreferences', userPreferences);
+      await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/friendpreferences', userPreferences);
       // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);
@@ -150,7 +149,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = () => {
               onChange={handleInputChange}
               onBlur={handleBlur}
               inputProps={{
-                step: 10,
+                step: 1,
                 min: 1,
                 max: 100,
                 type: 'number',
