@@ -5,7 +5,7 @@ interface FriendPreferencesPopupContentProps {
   closePopup: () => void;
 }
 
-const FriendPreferencesPopupContent: React.FC = ({ closePopup }: FriendPreferencesPopupContentProps) => {
+const FriendPreferencesPopupContent = ({ closePopup }: FriendPreferencesPopupContentProps) => {
   return (
     <div>
       <FriendPreferencesForm onSubmit={closePopup}/>

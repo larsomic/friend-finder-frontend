@@ -11,7 +11,7 @@ const Settings = () => {
 
   return (
     <CenteredContainer maxWidth="sm">
-      <SettingsForm onSuccess={handleLogin} />
+      <SettingsForm onSuccess={handleLogin} onSubmit={handleLogin}/>
     </CenteredContainer>
   );
 };

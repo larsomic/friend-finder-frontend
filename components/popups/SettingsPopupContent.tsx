@@ -5,7 +5,7 @@ interface SettingsPopupContextProps {
   closePopup: () => void;
 }
 
-const SettingsPopupContent: React.FC = ({ closePopup }: SettingsPopupContextProps) => {
+const SettingsPopupContent = ({ closePopup }: SettingsPopupContextProps) => {
   const onSuccess = () => {}
 
   return (
