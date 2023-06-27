@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import {
   Typography,
   Button,
@@ -86,7 +85,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit 
     };
 
     try {
-      const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/userfriendpreferences', userPreferences);
+      const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/friendpreferences', userPreferences);
       if (response.status === 200) {
         onSubmit();
       }
@@ -154,7 +153,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit 
               onChange={handleInputChange}
               onBlur={handleBlur}
               inputProps={{
-                step: 10,
+                step: 1,
                 min: 1,
                 max: 100,
                 type: 'number',

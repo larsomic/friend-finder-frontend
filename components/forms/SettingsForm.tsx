@@ -10,32 +10,45 @@ import {
   FormControlLabel,
   Switch
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import handleDarkMode from '../../util/handleDarkMode'
+import { setUserSettings } from '../../redux/userReducer';
+
 
 axios.defaults.withCredentials = true;
 
 interface SettingsFormProps {
   onSubmit: () => void;
+  onSuccess: () => void;
 }
 
-const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }: SettingsFormProps) => {
+const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
+  const dispatch = useDispatch();
+
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUserSettings = async () => {
       try {
         const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings');
         const userSettings = response.data;
-        setDarkMode(userSettings.darkMode || false);
+        if (response.status == 200) {
+          dispatch(setUserSettings(userSettings.darkMode));
+          setDarkMode(userSettings.darkMode)
+        }
+        handleDarkMode(userSettings.darkMode)
+
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchUserSettings();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +60,9 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }: SettingsFormPro
     try {
       const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings', userSettings);
       if (response.status === 200) {
+        onSuccess();
+        dispatch(setUserSettings(darkMode));
+        handleDarkMode(darkMode);
         onSubmit();
       }
       // Show success alert or perform any other actions upon successful save

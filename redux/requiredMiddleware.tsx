@@ -1,28 +1,14 @@
 import axios from 'axios';
 import { setUserInfo, setUserSettings } from './userReducer';
 import { MiddlewareAPI, Dispatch, AnyAction } from 'redux';
+import handleDarkMode from '../util/handleDarkMode';
 
 axios.defaults.withCredentials = true;
-
-const handleDarkMode = (darkMode: boolean) => {
-  const style = getComputedStyle(document.documentElement);
-  const color1 = style.getPropertyValue('--permanent-color-1');
-  const color2 = style.getPropertyValue('--permanent-color-2');
-  if (darkMode){
-    document.documentElement.style.setProperty('--light-dark-color-1', color2);
-    document.documentElement.style.setProperty('--light-dark-color-2', color1);
-  }
-  else {
-    document.documentElement.style.setProperty('--light-dark-color-1', color1);
-    document.documentElement.style.setProperty('--light-dark-color-2', color2);
-  }
-}
 
 const requiredMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => async (action: AnyAction) => {
     next(action); 
 
     const state = store.getState();
-    console.log(state)
     if (state.auth.loggedIn) {
       if (!state.user.name) {
         try {
@@ -34,9 +20,10 @@ const requiredMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>)
           console.error("Error fetching user info:", error);
         }
       }
-      if (state.settings.darkMode == null ) {
+      if (state.settings.darkMode === undefined || state.settings.darkMode === null ) {
         try {
           const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/user/settings");
+          console.log(response)
           if (response.status == 200) {
             store.dispatch(setUserSettings(response.data.darkMode ));
           }
@@ -44,7 +31,9 @@ const requiredMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>)
           console.error("Error fetching user settings:", error);
         }
       }
-      handleDarkMode(state.user.darkMode);
+      if (typeof state.settings.darkMode !== 'undefined' || state.settings.darkMode !== null ){   
+        handleDarkMode(state.settings.darkMode);
+      }
     }
   };
 
