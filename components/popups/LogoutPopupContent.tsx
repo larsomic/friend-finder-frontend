@@ -1,9 +1,13 @@
 import LogoutForm from '../forms/LogoutForm';
 
-const LogoutPopupContent = () => {
+interface LogoutPopupContentProps {
+  closePopup: () => void;
+}
+
+const LogoutPopupContent = ({ closePopup }: LogoutPopupContentProps) => {
   return (
     <div>
-      <LogoutForm/>
+      <LogoutForm onSubmit={closePopup}/>
     </div>
   );
 };
