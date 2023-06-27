@@ -32,7 +32,7 @@ const Popup: React.FC = () => {
   const renderContent = () => {
     switch (popupContent) {
       case 'account':
-        return <AccountPopupContent />;
+        return <AccountPopupContent closePopup={closePopup}/>;
       case 'logout':
         return <LogoutPopupContent />;      
       case 'login':
