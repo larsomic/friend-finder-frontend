@@ -1,10 +1,14 @@
 import React from 'react';
 import FriendPreferencesForm from '../forms/FriendPreferencesForm';
 
-const FriendPreferencesPopupContent: React.FC = () => {
+interface FriendPreferencesPopupContentProps {
+  closePopup: () => void;
+}
+
+const FriendPreferencesPopupContent: React.FC = ({ closePopup }: FriendPreferencesPopupContentProps) => {
   return (
     <div>
-      <FriendPreferencesForm />
+      <FriendPreferencesForm onSubmit={closePopup}/>
     </div>
   );
 };

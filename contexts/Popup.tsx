@@ -32,7 +32,7 @@ const Popup: React.FC = () => {
   const renderContent = () => {
     switch (popupContent) {
       case 'account':
-        return <AccountPopupContent closePopup={closePopup}/>;
+        return <AccountPopupContent closePopup={ closePopup }/>;
       case 'logout':
         return <LogoutPopupContent />;      
       case 'login':
@@ -40,9 +40,9 @@ const Popup: React.FC = () => {
       case 'signup':
         return <SignupPopupContent />;
       case 'friend-preferences':
-         return <FriendPreferencesPopupContent />;
+         return <FriendPreferencesPopupContent closePopup={ closePopup }/>;
       case 'settings':
-        return <SettingsPopupContent />;
+        return <SettingsPopupContent closePopup={ closePopup }/>;
       default:
         return null;
     }

@@ -3,12 +3,16 @@ import { useSelector } from 'react-redux';
 import { StoreType } from '../../redux/store_type';
 import SettingsForm from '../forms/SettingsForm';
 
-const SettingsPopupContent: React.FC = () => {
+interface SettingsPopupContextProps {
+  closePopup: () => void;
+}
+
+const SettingsPopupContent: React.FC = ({ closePopup }: SettingsPopupContextProps) => {
   const lightMode = true;
 
   return (
     <div>
-      <SettingsForm lightMode />
+      <SettingsForm lightMode onSubmit={closePopup}/>
     </div>
   );
 };

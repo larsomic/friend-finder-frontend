@@ -13,9 +13,11 @@ import {
 
 axios.defaults.withCredentials = true;
 
-interface SettingsFormProps {}
+interface SettingsFormProps {
+  onSubmit: () => void;
+}
 
-const SettingsForm: React.FC<SettingsFormProps> = () => {
+const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }: SettingsFormProps) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');
@@ -43,7 +45,10 @@ const SettingsForm: React.FC<SettingsFormProps> = () => {
     };
 
     try {
-      await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings', userSettings);
+      const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings', userSettings);
+      if (response.status === 200) {
+        onSubmit();
+      }
       // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);
