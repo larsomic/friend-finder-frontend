@@ -94,3 +94,4 @@ const UserAccountForm = ({ currentName, currentEmail, onSubmit }: UserAccountFor
 };
 
 export default UserAccountForm;
+
