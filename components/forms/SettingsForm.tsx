@@ -18,10 +18,11 @@ import ColorPalette from '../ColorPalette';
 axios.defaults.withCredentials = true;
 
 interface SettingsFormProps {
+  onSubmit: () => void;
   onSuccess: () => void;
 }
 
-const SettingsForm: React.FC<SettingsFormProps> = ({ onSuccess }) => {
+const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
   const dispatch = useDispatch();
   
   const [showAlert, setShowAlert] = useState(false);
@@ -62,15 +63,14 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ onSuccess }) => {
     };
 
     try {
-      await axios.patch(
-        process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings',
-        userSettings
-      );
-      onSuccess();
-      dispatch(setUserSettings(darkMode, selectedColor));
-      handleDarkMode(darkMode);
-      handleColorTheme(selectedColor);
-
+      const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings', userSettings);
+      if (response.status === 200) {
+        onSuccess();
+        dispatch(setUserSettings(darkMode, selectedColor));
+        handleDarkMode(darkMode);
+        handleColorTheme(selectedColor);
+        onSubmit();
+      }
       // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);

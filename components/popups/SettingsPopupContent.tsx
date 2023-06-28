@@ -1,12 +1,16 @@
 import React from 'react';
 import SettingsForm from '../forms/SettingsForm';
 
-const SettingsPopupContent: React.FC = () => {
+interface SettingsPopupContextProps {
+  closePopup: () => void;
+}
+
+const SettingsPopupContent = ({ closePopup }: SettingsPopupContextProps) => {
   const onSuccess = () => {}
 
   return (
     <div>
-      <SettingsForm onSuccess={onSuccess}/>
+      <SettingsForm onSuccess={onSuccess} onSubmit={closePopup}/>
     </div>
   );
 };

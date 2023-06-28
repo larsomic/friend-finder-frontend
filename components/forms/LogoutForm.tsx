@@ -5,8 +5,12 @@ import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
 import config from '../../config';
 
 axios.defaults.withCredentials = true;
-  
-const LogoutForm = () => {
+
+interface LogoutFormProps {
+  onSubmit: () => void;
+}
+
+const LogoutForm = ({ onSubmit }: LogoutFormProps) => {
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -16,7 +20,10 @@ const LogoutForm = () => {
     e.preventDefault();
     try {
         const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/auth/logout', { withCredentials: true });  
-        dispatch({ type: 'LOG_OUT' });
+        if (response.status === 200) {
+          dispatch({ type: 'LOG_OUT' });
+          onSubmit();
+        }
       } catch (error) {
         console.error("An error occurred while logging out.", error);
       }

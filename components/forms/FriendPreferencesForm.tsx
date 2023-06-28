@@ -18,9 +18,10 @@ import { attractedToOptions, religionOptions } from '../../options';
 axios.defaults.withCredentials = true;
 
 interface FriendPreferencesFormProps {
+  onSubmit: () => void;
 }
 
-const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = () => {
+const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit }: FriendPreferencesFormProps) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');
@@ -84,7 +85,10 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = () => {
     };
 
     try {
-      await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/friendpreferences', userPreferences);
+      const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/friendpreferences', userPreferences);
+      if (response.status === 200) {
+        onSubmit();
+      }
       // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);
