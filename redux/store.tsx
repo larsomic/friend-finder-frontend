@@ -28,12 +28,12 @@ const userReducer = (state = { name: null, email: null }, action: UserActions) =
   }
 };
 
-const settingsReducer = (state = { darkMode: null }, action: SettingsActions) => {
+const settingsReducer = (state = { darkMode: null, selectedColor:null }, action: SettingsActions) => {
   switch (action.type) {
     case 'GET_USER_SETTINGS':
-      return { ...state, darkMode: action.payload?.darkMode };
+      return { ...state, darkMode: action.payload?.darkMode, selectedColor: action.payload?.selectedColor };
     case 'UPDATE_USER_SETTINGS':
-      return { ...state, darkMode: action.payload?.darkMode };
+      return { ...state, darkMode: action.payload?.darkMode, selectedColor: action.payload?.selectedColor };
     default:
       return state;
   }

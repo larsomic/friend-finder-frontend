@@ -23,6 +23,7 @@ export interface SettingsActions {
   type: 'GET_USER_SETTINGS' | 'UPDATE_USER_SETTINGS';
   payload?: {
     darkMode: boolean;
+    selectedColor: string;
   };
 }
 

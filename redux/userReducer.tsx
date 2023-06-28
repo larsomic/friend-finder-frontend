@@ -3,7 +3,7 @@ export const setUserInfo = (name: string, email: string) => ({
     payload: { name, email },
   });
 
-export const setUserSettings = (darkMode: boolean) => ({
+export const setUserSettings = (darkMode: boolean, selectedColor:string) => ({
   type: 'UPDATE_USER_SETTINGS' as const, 
-  payload: { darkMode },
+  payload: { darkMode, selectedColor },
 });
