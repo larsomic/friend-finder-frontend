@@ -92,3 +92,4 @@ const UserAccountForm = ({ currentName, currentEmail }: UserAccountFormProps) =>
 };
 
 export default UserAccountForm;
+

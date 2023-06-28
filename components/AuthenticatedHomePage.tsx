@@ -19,7 +19,7 @@ const AuthenticatedHomePage = () => {
       <HeaderBar />
       <Popup />
       <div>Hey {name}, lets get you some friends.</div>
-      <MatchesViewer/>
+      {/* <MatchesViewer/> */}
       <BottomInfoBar />
     </div>
   );

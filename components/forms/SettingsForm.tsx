@@ -8,12 +8,12 @@ import {
   Alert,
   AlertColor,
   FormControlLabel,
-  Switch
+  Switch,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import handleDarkMode from '../../util/handleDarkMode'
+import { handleDarkMode, handleColorTheme } from '../../util/handleTheme';
 import { setUserSettings } from '../../redux/userReducer';
-
+import ColorPalette from '../ColorPalette';
 
 axios.defaults.withCredentials = true;
 
@@ -21,25 +21,29 @@ interface SettingsFormProps {
   onSuccess: () => void;
 }
 
-const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess}) => {
+const SettingsForm: React.FC<SettingsFormProps> = ({ onSuccess }) => {
   const dispatch = useDispatch();
-
+  
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');
   const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [selectedColor, setSelectedColor] = useState<string>('Mint');
 
   useEffect(() => {
     const fetchUserSettings = async () => {
       try {
-        const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings');
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings'
+        );
         const userSettings = response.data;
         if (response.status == 200) {
-          dispatch(setUserSettings(userSettings.darkMode));
-          setDarkMode(userSettings.darkMode)
+          dispatch(setUserSettings(userSettings.darkMode, userSettings.selectedColor));
+          setDarkMode(userSettings.darkMode);
+          setSelectedColor(userSettings.selectedColor);
         }
-        handleDarkMode(userSettings.darkMode)
-
+        handleDarkMode(darkMode);
+        handleColorTheme(selectedColor);
       } catch (error) {
         console.log(error);
       }
@@ -47,20 +51,26 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess}) => {
 
     fetchUserSettings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const userSettings = {
-        darkMode: darkMode
+      darkMode: darkMode,
+      selectedColor: selectedColor,
     };
 
     try {
-      await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings', userSettings);
-      onSuccess()
-      dispatch(setUserSettings(darkMode));
-      handleDarkMode(darkMode)
+      await axios.patch(
+        process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/settings',
+        userSettings
+      );
+      onSuccess();
+      dispatch(setUserSettings(darkMode, selectedColor));
+      handleDarkMode(darkMode);
+      handleColorTheme(selectedColor);
+
       // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);
@@ -72,8 +82,8 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess}) => {
     setShowAlert(false);
   };
 
-  const handleDarkModeToggle = ()=>{
-    setDarkMode(!darkMode)
+  const handleDarkModeToggle = () => {
+    setDarkMode(!darkMode);
   };
 
   return (
@@ -92,7 +102,19 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess}) => {
           </Grid>
         )}
         <Grid item xs={12}>
-            <FormControlLabel control={<Switch checked={darkMode} onChange={handleDarkModeToggle}/>} label="Dark Mode" labelPlacement="start"/>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={darkMode}
+                onChange={handleDarkModeToggle}
+              />
+            }
+            label="Dark Mode"
+            labelPlacement="start"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <ColorPalette onColorSelect={setSelectedColor} selectedColor={selectedColor}/>
         </Grid>
         <Grid item xs={12}>
           <Box textAlign="center">
