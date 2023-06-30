@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
+import { persistor } from '../../redux/store';
+
 import config from '../../config';
 
 axios.defaults.withCredentials = true;
@@ -21,7 +23,8 @@ const LogoutForm = ({ onSubmit }: LogoutFormProps) => {
     try {
         const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/auth/logout', { withCredentials: true });  
         if (response.status === 200) {
-          dispatch({ type: 'LOG_OUT' });
+          dispatch({ type: 'RESET_STORE' });
+          persistor.purge();
           onSubmit();
         }
       } catch (error) {
