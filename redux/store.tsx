@@ -12,6 +12,8 @@ const authReducer = (state = { loggedIn: false }, action: LoginActions) => {
       return { ...state, loggedIn: false };
     case 'SIGNED_UP':
       return { ...state, loggedIn: true };
+    case 'RESET_STORE':
+      return { loggedIn: null}; 
     default:
       return state;
   }
@@ -23,6 +25,8 @@ const userReducer = (state = { name: null, email: null }, action: UserActions) =
       return { ...state, name: action.payload?.name, email: action.payload?.email };
     case 'UPDATE_USER_INFO':
       return { ...state, name: action.payload?.name, email: action.payload?.email };
+    case 'RESET_STORE':
+      return { name: null, email: null }; 
     default:
       return state;
   }
@@ -34,6 +38,8 @@ const settingsReducer = (state = { darkMode: null, selectedColor:null }, action:
       return { ...state, darkMode: action.payload?.darkMode, selectedColor: action.payload?.selectedColor };
     case 'UPDATE_USER_SETTINGS':
       return { ...state, darkMode: action.payload?.darkMode, selectedColor: action.payload?.selectedColor };
+    case 'RESET_STORE':
+      return { darkMode: null, selectedColor: null }; 
     default:
       return state;
   }
