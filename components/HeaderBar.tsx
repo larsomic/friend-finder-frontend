@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
-
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
-import { Menu as MenuIcon, Adb as AdbIcon } from '@mui/icons-material';
-
+import Diversity1TwoToneIcon from '@mui/icons-material/Diversity1TwoTone';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import type { StoreType } from '../redux/store_type';
-
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-
 import { PopupContext } from '../contexts/PopupContext';
 
 function HeaderBar() {
@@ -17,18 +14,22 @@ function HeaderBar() {
   if (!popupContext) {
     throw new Error("PopupContext is undefined, make sure you're using the PopupProvider");
   }
-const { isPopupOpen, openPopup } = popupContext;
+  const { isPopupOpen, openPopup } = popupContext;
 
-  const loggedIn = state.auth.loggedIn
+  const loggedIn = state.auth.loggedIn;
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElMenu1, setAnchorElMenu1] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
+  };
+  const handleOpenMenu1 = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElMenu1(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -39,37 +40,29 @@ const { isPopupOpen, openPopup } = popupContext;
     setAnchorElUser(null);
   };
 
-  // const handleSignUpClicked = () => {
-  //   router.push('/signup');
-  // };
-
-  // const handleLogInClicked = () => {
-  //   router.push('/login');
-  // };
-
-  // const handleLogoutClicked = () => {
-  //   router.push('/logout')
-  // }
+  const handleCloseUserMenu1 = () => {
+    setAnchorElMenu1(null);
+  };
 
   const pages = ['Mission', 'Safety', 'Support'];
-  
+
   const settings = {
-    'Account': () => {openPopup('account');handleCloseUserMenu();},
-    'Preferences':() => {openPopup('friend-preferences');handleCloseUserMenu();},
-    'Settings': () => {openPopup('settings');handleCloseUserMenu();},
-    'Logout': () => {openPopup('logout');handleCloseUserMenu();},
-  } 
+    'Account': () => { openPopup('account'); handleCloseUserMenu(); },
+    'Preferences': () => { openPopup('friend-preferences'); handleCloseUserMenu(); },
+    'Settings': () => { openPopup('settings'); handleCloseUserMenu(); },
+    'Logout': () => { openPopup('logout'); handleCloseUserMenu(); },
+  };
 
   const loggedOutItems = {
-    'Sign Up': () => {openPopup('signup');},
-    'Login': () => {openPopup('login');},
-  }
+    'Sign Up': () => { openPopup('signup'); },
+    'Login': () => { openPopup('login'); },
+  };
 
   return (
     <AppBar position="static" sx={{ bgcolor: 'var(--color1)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' , color:'var(--color4)'}, mr: 1 }} />
+          <Diversity1TwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, color: 'var(--color4)', mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -82,6 +75,7 @@ const { isPopupOpen, openPopup } = popupContext;
               fontWeight: 700,
               color: 'var(--color4)',
               textDecoration: 'none',
+              fontSize: { xs: '1.1rem', md: '1.3rem'}
             }}
           >
             Friend Finder
@@ -93,9 +87,9 @@ const { isPopupOpen, openPopup } = popupContext;
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}              
+              onClick={handleOpenNavMenu}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: 'var(--color4)' }} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -117,12 +111,11 @@ const { isPopupOpen, openPopup } = popupContext;
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" sx={{color: 'var(--color4)'}}>{page}</Typography>
+                  <Typography textAlign="center" sx={{ color: 'var(--color4)' }}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -139,7 +132,7 @@ const { isPopupOpen, openPopup } = popupContext;
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Friend Finder
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -154,46 +147,84 @@ const { isPopupOpen, openPopup } = popupContext;
           </Box>
           {loggedIn ? (
             <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
+              <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" />
                 </IconButton>
-                </Tooltip>
-                <Menu
+              </Tooltip>
+              <Menu
                 sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
+                id="menu-appbar-user" // Update the id to differentiate from the previous menu
+                anchorEl={anchorElUser} // Use anchorElUser instead of anchorElNav
                 anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-                >
+                open={Boolean(anchorElUser)} // Use anchorElUser instead of anchorElNav
+                onClose={handleCloseUserMenu} // Use handleCloseUserMenu instead of handleCloseNavMenu
+              >
                 {Object.entries(settings).map(([setting, handleClick]) => (
                   <MenuItem key={setting} onClick={handleClick}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
-                </Menu>
-            </Box>)
-           : (
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
-                <MenuItem key={setting} onClick={handleClick}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              </Menu>
             </Box>
-        )}
+          ) : (
+            <Box>
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
+                {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
+                  <MenuItem key={setting} onClick={handleClick}>
+                    <Typography textAlign="center" sx={{ color: 'var(--color4)' }}>{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Box>
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenMenu1}
+                >
+                  <Diversity1TwoToneIcon sx={{ color: 'var(--color4)', mr: 1 }} />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElMenu1}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  open={Boolean(anchorElMenu1)}
+                  onClose={handleCloseUserMenu1}
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                  }}
+                >
+                  {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
+                    <MenuItem key={setting} onClick={handleClick}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default HeaderBar;
