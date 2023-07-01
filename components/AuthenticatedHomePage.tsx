@@ -19,6 +19,31 @@ const AuthenticatedHomePage = () => {
       <HeaderBar />
       <Popup />
       <div>Hey {name}, lets get you some friends.</div>
+      <div id='a'>MIKEEEE</div>
+      <div id='b'>MIKEEEE</div>
+      <div id='c'>MIKEEEE</div>
+      <div id='d'>MIKEEEE</div>
+      <div id='e'>MIKEEEE</div>
+      <div id='b'>MIKEEEE</div>
+      <div id='c'>MIKEEEE</div>
+      <div id='d'>MIKEEEE</div>
+      <div id='e'>MIKEEEE</div>
+      <div id='b'>MIKEEEE</div>
+      <div id='c'>MIKEEEE</div>
+      <div id='d'>MIKEEEE</div>
+      <div id='e'>MIKEEEE</div>
+      <div id='b'>MIKEEEE</div>
+      <div id='c'>MIKEEEE</div>
+      <div id='d'>MIKEEEE</div>
+      <div id='e'>MIKEEEE</div>
+      <div id='b'>MIKEEEE</div>
+      <div id='c'>MIKEEEE</div>
+      <div id='d'>MIKEEEE</div>
+      <div id='e'>MIKEEEE</div>
+      <div id='b'>MIKEEEE</div>
+      <div id='c'>MIKEEEE</div>
+      <div id='d'>MIKEEEE</div>
+      <div id='e'>MIKEEEE</div>
       {/* <MatchesViewer/> */}
       <BottomInfoBar />
     </div>
