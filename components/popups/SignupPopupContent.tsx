@@ -1,8 +1,16 @@
 import SignupForm from '../forms/SignupForm';
 import React, { useContext } from 'react';
 import { PopupContext } from '../../contexts/PopupContext';
+import { AlertColor } from '@mui/material';
 
-const SignupPopupContent = () => {
+
+interface SignUpPopupContentProps {
+  setShowAlert: (param: boolean) => void; 
+  setAlertMessage: (param: string) => void; 
+  setAlertType: (param: AlertColor) => void;
+}
+
+const SignupPopupContent = ({ setShowAlert, setAlertMessage, setAlertType }:SignUpPopupContentProps) => {
   const popupContext = useContext(PopupContext);
   
   const handleSignup = () => {
@@ -11,7 +19,7 @@ const SignupPopupContent = () => {
 
   return (
     <div>
-      <SignupForm onSignup={handleSignup}/>
+      <SignupForm onSignup={handleSignup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>
     </div>
   );
 };

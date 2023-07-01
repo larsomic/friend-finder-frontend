@@ -12,6 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
+import { AlertColor, Grid, Alert } from '@mui/material';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -29,20 +30,28 @@ const Popup: React.FC = () => {
   }
   const { isPopupOpen, popupContent, closePopup } = popupContext;
 
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState("");
+  const [alertType, setAlertType] = React.useState<AlertColor>("error");
+
+  const handleAlertClose = () => {
+    setShowAlert(false);
+  }
+
   const renderContent = () => {
     switch (popupContent) {
       case 'account':
-        return <AccountPopupContent closePopup={closePopup}/>;
+        return <AccountPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
       case 'logout':
-        return <LogoutPopupContent closePopup={closePopup}/>;      
+        return <LogoutPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;      
       case 'login':
-        return <LoginPopupContent />;      
+        return <LoginPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;      
       case 'signup':
-        return <SignupPopupContent />;
+        return <SignupPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
       case 'friend-preferences':
-         return <FriendPreferencesPopupContent closePopup={closePopup}/>;
+         return <FriendPreferencesPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
       case 'settings':
-        return <SettingsPopupContent closePopup={closePopup}/>;
+        return <SettingsPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
       default:
         return null;
     }
@@ -50,6 +59,13 @@ const Popup: React.FC = () => {
 
   return (
     <Dialog open={isPopupOpen} TransitionComponent={Transition} onClose={closePopup}>
+      {showAlert && 
+        <Grid item xs={12}>
+            <Alert severity={alertType} onClose={handleAlertClose}>
+                {alertMessage}
+            </Alert>
+        </Grid>
+      }
       <DialogContent>
         {renderContent()}
       </DialogContent>

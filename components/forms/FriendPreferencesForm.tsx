@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  Typography,
-  Button,
-  Grid,
-  Box,
-  Alert,
-  AlertColor,
-  ToggleButton,
-  ToggleButtonGroup,
-  Slider,
-  Input,
-} from '@mui/material';
+import { Typography, Button, Grid, Box, AlertColor, ToggleButton, ToggleButtonGroup, Slider, Input } from '@mui/material';
 import MultiSelectCheckmarks from '../MultiSelectCheckmarks';
 import { attractedToOptions, religionOptions } from '../../options';
 
@@ -19,12 +8,12 @@ axios.defaults.withCredentials = true;
 
 interface FriendPreferencesFormProps {
   onSubmit: () => void;
+  setShowAlert: (param: boolean) => void; 
+  setAlertMessage: (param: string) => void; 
+  setAlertType: (param: AlertColor) => void;
 }
 
-const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit }: FriendPreferencesFormProps) => {
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertType, setAlertType] = useState<AlertColor>('error');
+const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit, setShowAlert, setAlertMessage, setAlertType }: FriendPreferencesFormProps) => {
   const [inPersonPreference, setInPersonPreference] = useState('inperson');
   const [miles, setMiles] = useState<number | string | Array<number | string>>(30);
   const [attractedTo, setAttractedTo] = useState<string[]>([]);
@@ -39,12 +28,19 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit 
         setMiles(userPreferences.miles || 30);
         setAttractedTo(userPreferences.attractedTo || []);
         setReligion(userPreferences.religion || []);
+        setAlertMessage("Successfully got user preferences.");
+        setAlertType("success");
+        setShowAlert(true);
       } catch (error) {
         console.log(error);
+        setAlertMessage("Error getting user preferences.");
+        setAlertType("error");
+        setShowAlert(true);
       }
     };
 
     fetchUserPreferences();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAlignmentChange = (
@@ -88,16 +84,16 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit 
       const response = await axios.patch(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/user/friendpreferences', userPreferences);
       if (response.status === 200) {
         onSubmit();
+        setAlertMessage("Successfully editted user preferences.");
+        setAlertType("success");
+        setShowAlert(true);
       }
-      // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);
-      // Show error alert or handle the error in any desired way
+      setAlertMessage("Error setting user preferences.");
+      setAlertType("error");
+      setShowAlert(true);
     }
-  };
-
-  const handleClose = () => {
-    setShowAlert(false);
   };
 
   const ITEM_HEIGHT = 48;
@@ -119,13 +115,6 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit 
             <Typography>Edit Preferences</Typography>
           </Box>
         </Grid>
-        {showAlert && (
-          <Grid item xs={12}>
-            <Alert severity={alertType} onClose={handleClose}>
-              {alertMessage}
-            </Alert>
-          </Grid>
-        )}
         <Grid item xs={12}>
           <ToggleButtonGroup
             color="primary"

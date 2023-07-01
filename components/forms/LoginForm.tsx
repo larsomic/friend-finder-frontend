@@ -8,15 +8,15 @@ axios.defaults.withCredentials = true;
 
 interface LoginFormProps {
   onLogin: () => void;
+  setShowAlert: (param: boolean) => void; 
+  setAlertMessage: (param: string) => void; 
+  setAlertType: (param: AlertColor) => void;
 }
   
-const LoginForm = ({ onLogin }: LoginFormProps) => {
+const LoginForm = ({ onLogin, setShowAlert, setAlertMessage, setAlertType }: LoginFormProps) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertType, setAlertType] = useState<AlertColor>("error");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,13 +57,6 @@ const LoginForm = ({ onLogin }: LoginFormProps) => {
             <h2>Login</h2>
           </Box>
         </Grid>
-        {showAlert && 
-          <Grid item xs={12}>
-              <Alert severity={alertType} onClose={handleClose}>
-                  {alertMessage}
-              </Alert>
-          </Grid>
-        }
         <Grid item xs={12}>
           <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth type="email" value={email} autoFocus onChange={(e) => setEmail(e.target.value)}/>
         </Grid>

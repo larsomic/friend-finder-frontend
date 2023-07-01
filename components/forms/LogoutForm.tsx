@@ -1,40 +1,41 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
+import { Button, Grid, AlertColor } from '@mui/material';
 import { persistor } from '../../redux/store';
 
-import config from '../../config';
 
 axios.defaults.withCredentials = true;
 
 interface LogoutFormProps {
   onSubmit: () => void;
+  setShowAlert: (param: boolean) => void; 
+  setAlertMessage: (param: string) => void; 
+  setAlertType: (param: AlertColor) => void;
 }
 
-const LogoutForm = ({ onSubmit }: LogoutFormProps) => {
+const LogoutForm = ({ onSubmit, setShowAlert, setAlertMessage, setAlertType }: LogoutFormProps) => {
   const dispatch = useDispatch();
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertType, setAlertType] = useState<AlertColor>("error");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
         const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + '/api/auth/logout', { withCredentials: true });  
         if (response.status === 200) {
+          setAlertMessage("User successfully logged out.");
+          setAlertType("success");
+          setShowAlert(true);
           dispatch({ type: 'RESET_STORE' });
           persistor.purge();
           onSubmit();
         }
       } catch (error) {
         console.error("An error occurred while logging out.", error);
+        setAlertMessage("Error logging out.");
+        setAlertType("error");
+        setShowAlert(true);
       }
   };
-
-  const handleClose = () => {
-    setShowAlert(false);
-  }
 
   return (
     <form onSubmit={handleSubmit}>
