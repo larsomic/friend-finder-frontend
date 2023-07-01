@@ -39,11 +39,11 @@ const requiredMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>)
           }
         }
       }
-      if (typeof state.settings.darkMode !== 'undefined' || state.settings.darkMode !== null ){   
-        handleDarkMode(state.settings.darkMode);
-      }
       if (typeof state.settings.selectedColor !== 'undefined' || state.settings.selectedColor !== null ){   
         handleColorTheme(state.settings.selectedColor);
+      }
+      if (typeof state.settings.darkMode !== 'undefined' || state.settings.darkMode !== null ){   
+        handleDarkMode(state.settings.darkMode);
       }
     }
   };

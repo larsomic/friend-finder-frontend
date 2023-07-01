@@ -66,10 +66,10 @@ const { isPopupOpen, openPopup } = popupContext;
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ bgcolor: 'var(--color1)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' , color:'var(--color4)'}, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -80,7 +80,7 @@ const { isPopupOpen, openPopup } = popupContext;
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
-              color: 'inherit',
+              color: 'var(--color4)',
               textDecoration: 'none',
             }}
           >
@@ -93,8 +93,7 @@ const { isPopupOpen, openPopup } = popupContext;
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+              onClick={handleOpenNavMenu}              
             >
               <MenuIcon />
             </IconButton>
@@ -118,7 +117,7 @@ const { isPopupOpen, openPopup } = popupContext;
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" sx={{color: 'var(--color4)'}}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -136,7 +135,7 @@ const { isPopupOpen, openPopup } = popupContext;
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'var(--color4)',
               textDecoration: 'none',
             }}
           >
@@ -147,7 +146,7 @@ const { isPopupOpen, openPopup } = popupContext;
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'var(--color3)', display: 'block' }}
               >
                 {page}
               </Button>

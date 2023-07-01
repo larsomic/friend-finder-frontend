@@ -42,9 +42,9 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
           dispatch(setUserSettings(userSettings.darkMode, userSettings.selectedColor));
           setDarkMode(userSettings.darkMode);
           setSelectedColor(userSettings.selectedColor);
+          handleColorTheme(userSettings.selectedColor);
+          handleDarkMode(userSettings.darkMode);
         }
-        handleDarkMode(darkMode);
-        handleColorTheme(selectedColor);
       } catch (error) {
         console.log(error);
       }
@@ -67,8 +67,8 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
       if (response.status === 200) {
         onSuccess();
         dispatch(setUserSettings(darkMode, selectedColor));
-        handleDarkMode(darkMode);
         handleColorTheme(selectedColor);
+        handleDarkMode(darkMode);
         onSubmit();
       }
       // Show success alert or perform any other actions upon successful save

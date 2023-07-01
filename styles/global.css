@@ -1,8 +1,14 @@
 :root {
-  --permanent-color-1: #000000;
-  --permanent-color-2: #ffffff;
-  --light-dark-color-1: #000000;
-  --light-dark-color-2: #ffffff;
+  --pColor1: #0C1821;
+  --pColor2: #1B2A41;
+  --pColor3: #324A5F;
+  --pColor4: #839788;
+  --pColor5: #EDEBD7;
+  --color1: #0C1821;
+  --color2: #1B2A41;
+  --color3: #324A5F;
+  --color4: #839788;
+  --color5: #EDEBD7;
   color: var(--light-dark-color-1);
   background-color: var(--light-dark-color-2);
 }
@@ -15,6 +21,7 @@ body {
 Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  background-color: var(--color5);
   }    
 
 * {
@@ -57,4 +64,24 @@ body {
   border-radius: 4px;
   max-width: 500px;
   width: 100%;
+}
+
+#a{
+  color:var(--color1)
+}
+
+#b{
+  color:var(--color2)
+}
+
+#c{
+  color:var(--color3)
+}
+
+#d{
+  color:var(--color4)
+}
+
+#e{
+  color:var(--color5) 
 }
