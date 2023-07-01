@@ -1,5 +1,5 @@
 export interface LoginActions {
-    type: 'LOG_IN' | 'LOG_OUT' | 'SIGNED_UP';
+    type: 'LOG_IN' | 'LOG_OUT' | 'SIGNED_UP' | 'RESET_STORE';
   }
 
 interface AuthState {
@@ -7,7 +7,7 @@ interface AuthState {
 }
 
 export interface UserActions {
-    type: 'GET_USER_INFO' | 'UPDATE_USER_INFO';
+    type: 'GET_USER_INFO' | 'UPDATE_USER_INFO' | 'RESET_STORE';
     payload?: {
       name: string;
       email: string;
@@ -20,7 +20,7 @@ interface UserState {
 }
 
 export interface SettingsActions {
-  type: 'GET_USER_SETTINGS' | 'UPDATE_USER_SETTINGS';
+  type: 'GET_USER_SETTINGS' | 'UPDATE_USER_SETTINGS' | 'RESET_STORE';
   payload?: {
     darkMode: boolean;
     selectedColor: string;

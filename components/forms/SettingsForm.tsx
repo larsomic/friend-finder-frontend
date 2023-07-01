@@ -29,7 +29,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState<AlertColor>('error');
   const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [selectedColor, setSelectedColor] = useState<string>('Mint');
+  const [selectedColor, setSelectedColor] = useState<string>('Blue');
 
   useEffect(() => {
     const fetchUserSettings = async () => {
