@@ -26,7 +26,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <PopupProvider>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}> 
             <Component {...pageProps} />
           </ThemeProvider>
         </PopupProvider>
