@@ -6,13 +6,12 @@ import { TextField, Button, Grid, Box, AlertColor } from '@mui/material';
 interface UserAccountFormProps {
   currentName: string;
   currentEmail: string;
-  onSubmit: () => void;
   setShowAlert: (param: boolean) => void; 
   setAlertMessage: (param: string) => void; 
   setAlertType: (param: AlertColor) => void;
 }
 
-const UserAccountForm = ({ currentName, currentEmail, onSubmit, setShowAlert, setAlertMessage, setAlertType }: UserAccountFormProps) => {
+const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMessage, setAlertType }: UserAccountFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState(currentName);
   const [email, setEmail] = useState(currentEmail);
@@ -31,7 +30,6 @@ const UserAccountForm = ({ currentName, currentEmail, onSubmit, setShowAlert, se
         setAlertType("success");
         setShowAlert(true);
         dispatch({ type: 'UPDATE_USER_INFO', payload: { name, email } });
-        onSubmit();
       }
     } catch (error) {
       console.log(error);

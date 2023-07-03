@@ -4,13 +4,12 @@ import { StoreType } from '../../redux/store_type';
 import { AlertColor } from '@mui/material';
 
 interface AccountPopupContentProps {
-  closePopup: () => void;
   setShowAlert: (param: boolean) => void; 
   setAlertMessage: (param: string) => void; 
   setAlertType: (param: AlertColor) => void;
 }
 
-const AccountPopupContent = ({ closePopup, setShowAlert, setAlertMessage, setAlertType }: AccountPopupContentProps) => {
+const AccountPopupContent = ({ setShowAlert, setAlertMessage, setAlertType }: AccountPopupContentProps) => {
   const user = useSelector((state: StoreType) => state.user);
   const { name = '', email='' } = user;
   const currentName = name === null ? '' : name;
@@ -18,7 +17,7 @@ const AccountPopupContent = ({ closePopup, setShowAlert, setAlertMessage, setAle
   
   return (
     <div>
-      <UserAccountForm currentName={currentName} currentEmail={currentEmail} onSubmit={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>
+      <UserAccountForm currentName={currentName} currentEmail={currentEmail} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>
     </div>
   );
 };

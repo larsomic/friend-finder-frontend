@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { PopupContext } from './PopupContext';
 import AccountPopupContent from '../components/popups/AccountPopupContent';
 import FriendPreferencesPopupContent from '../components/popups/FriendPreferencesPopupContent';
@@ -36,22 +36,38 @@ const Popup: React.FC = () => {
 
   const handleAlertClose = () => {
     setShowAlert(false);
-  }
+  };
+
+  const closePopupAndAlert = () => {
+    handleAlertClose();
+    closePopup();
+  };
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        closePopupAndAlert();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showAlert]);
 
   const renderContent = () => {
     switch (popupContent) {
       case 'account':
-        return <AccountPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
+        return <AccountPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'logout':
-        return <LogoutPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;      
+        return <LogoutPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} showAlert={showAlert}/>;
       case 'login':
-        return <LoginPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;      
+        return <LoginPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'signup':
-        return <SignupPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
+        return <SignupPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'friend-preferences':
-         return <FriendPreferencesPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
+        return <FriendPreferencesPopupContent closePopup={closePopupAndAlert} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'settings':
-        return <SettingsPopupContent closePopup={closePopup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>;
+        return <SettingsPopupContent closePopup={closePopupAndAlert} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       default:
         return null;
     }
@@ -59,16 +75,14 @@ const Popup: React.FC = () => {
 
   return (
     <Dialog open={isPopupOpen} TransitionComponent={Transition} onClose={closePopup}>
-      {showAlert && 
+      {showAlert && (
         <Grid item xs={12}>
-            <Alert severity={alertType} onClose={handleAlertClose}>
-                {alertMessage}
-            </Alert>
+          <Alert severity={alertType} onClose={handleAlertClose}>
+            {alertMessage}
+          </Alert>
         </Grid>
-      }
-      <DialogContent>
-        {renderContent()}
-      </DialogContent>
+      )}
+      <DialogContent>{renderContent()}</DialogContent>
       <DialogActions>
         <Button onClick={closePopup}>Close</Button>
       </DialogActions>
