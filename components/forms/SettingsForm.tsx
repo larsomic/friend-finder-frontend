@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  Typography,
-  Button,
-  Grid,
-  Box,
-  Alert,
-  AlertColor,
-  FormControlLabel,
-  Switch,
-} from '@mui/material';
+import { Typography, Button, Grid, Box, Alert, AlertColor, FormControlLabel, Switch } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { handleDarkMode, handleColorTheme } from '../../util/handleTheme';
 import { setUserSettings } from '../../redux/userReducer';
@@ -20,14 +11,14 @@ axios.defaults.withCredentials = true;
 interface SettingsFormProps {
   onSubmit: () => void;
   onSuccess: () => void;
+  setShowAlert: (param: boolean) => void; 
+  setAlertMessage: (param: string) => void; 
+  setAlertType: (param: AlertColor) => void;
 }
 
-const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
+const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit, setShowAlert, setAlertMessage, setAlertType}) => {
   const dispatch = useDispatch();
   
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertType, setAlertType] = useState<AlertColor>('error');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<string>('Blue');
 
@@ -44,8 +35,14 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
           setSelectedColor(userSettings.selectedColor);
           handleColorTheme(userSettings.selectedColor);
           handleDarkMode(userSettings.darkMode);
+          setAlertMessage("Successfully changed user settings.");
+          setAlertType("success");
+          setShowAlert(true);
         }
       } catch (error) {
+        setAlertMessage("Error changing user settings.");
+        setAlertType("error");
+        setShowAlert(true);
         console.log(error);
       }
     };
@@ -69,17 +66,17 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
         dispatch(setUserSettings(darkMode, selectedColor));
         handleColorTheme(selectedColor);
         handleDarkMode(darkMode);
+        setAlertMessage("Succesfully set user settings.");
+        setAlertType("success");
+        setShowAlert(true);
         onSubmit();
       }
-      // Show success alert or perform any other actions upon successful save
     } catch (error) {
       console.log(error);
-      // Show error alert or handle the error in any desired way
+      setAlertMessage("Error setting user settings.");
+      setAlertType("error");
+      setShowAlert(true);
     }
-  };
-
-  const handleClose = () => {
-    setShowAlert(false);
   };
 
   const handleDarkModeToggle = () => {
@@ -94,13 +91,6 @@ const SettingsForm: React.FC<SettingsFormProps> = ({onSuccess, onSubmit}) => {
             <Typography>Edit Settings</Typography>
           </Box>
         </Grid>
-        {showAlert && (
-          <Grid item xs={12}>
-            <Alert severity={alertType} onClose={handleClose}>
-              {alertMessage}
-            </Alert>
-          </Grid>
-        )}
         <Grid item xs={12}>
           <FormControlLabel
             control={

@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
+import { TextField, Button, Grid, Box, AlertColor } from '@mui/material';
 import config from '../../config';
 
 axios.defaults.withCredentials = true;
 
 interface SignupFormProps {
     onSignup: () => void;
+    setShowAlert: (param: boolean) => void; 
+    setAlertMessage: (param: string) => void; 
+    setAlertType: (param: AlertColor) => void;
   }
     
-const SignupForm = ({ onSignup }: SignupFormProps) => {
+const SignupForm = ({ onSignup, setShowAlert, setAlertMessage, setAlertType }: SignupFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertType, setAlertType] = useState<AlertColor>("error");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,13 +58,6 @@ const SignupForm = ({ onSignup }: SignupFormProps) => {
             <h2>Sign Up</h2>
           </Box>
         </Grid>
-        {showAlert && 
-          <Grid item xs={12}>
-            <Alert severity={alertType} onClose={handleClose}>
-              {alertMessage}
-            </Alert>
-          </Grid>
-        }
         <Grid item xs={12}>
           <TextField id="outlined-basic" label="Name" variant="outlined" fullWidth type="text" value={name} autoFocus onChange={(e) => setName(e.target.value)}/>
         </Grid>

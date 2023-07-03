@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { TextField, Button, Grid, Box, Alert, AlertColor } from '@mui/material';
+import { Button, Grid, AlertColor } from '@mui/material';
 import { persistor } from '../../redux/store';
-
-import config from '../../config';
 
 axios.defaults.withCredentials = true;
 
 interface LogoutFormProps {
-  onSubmit: () => void;
+  setShowAlert: (param: boolean) => void; 
+  setAlertMessage: (param: string) => void; 
+  setAlertType: (param: AlertColor) => void;
+  showAlert: boolean;
 }
 
-const LogoutForm = ({ onSubmit }: LogoutFormProps) => {
+const areEqual = (prevProps: LogoutFormProps, nextProps: LogoutFormProps) => {
+  return prevProps.showAlert === nextProps.showAlert;
+};
+
+const LogoutForm = React.memo(({ setShowAlert, setAlertMessage, setAlertType, showAlert }: LogoutFormProps) => {
   const dispatch = useDispatch();
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertType, setAlertType] = useState<AlertColor>("error");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,26 +27,29 @@ const LogoutForm = ({ onSubmit }: LogoutFormProps) => {
         if (response.status === 200) {
           dispatch({ type: 'RESET_STORE' });
           persistor.purge();
-          onSubmit();
+          setAlertMessage("User successfully logged out.");
+          setAlertType("success");
+          setShowAlert(true);
         }
       } catch (error) {
         console.error("An error occurred while logging out.", error);
+        setAlertMessage("Error logging out.");
+        setAlertType("error");
+        setShowAlert(true);
       }
   };
-
-  const handleClose = () => {
-    setShowAlert(false);
-  }
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
-            <Button type="submit">Logout</Button>
+          <Button type="submit">Logout</Button>
         </Grid>
       </Grid>
     </form>
   );
-};
+}, areEqual);
+
+LogoutForm.displayName = 'LogoutForm';
 
 export default LogoutForm;

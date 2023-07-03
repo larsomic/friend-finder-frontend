@@ -24,6 +24,9 @@ const handleDarkMode = (darkMode: boolean) => {
 }
 
 const handleColorTheme = (colorTheme: string) => {
+  if (colorTheme == null){
+    colorTheme = 'Blue';
+  }
   document.documentElement.style.setProperty('--pColor1', colorsList[colorTheme][0]);
   document.documentElement.style.setProperty('--pColor2', colorsList[colorTheme][1]);
   document.documentElement.style.setProperty('--pColor3', colorsList[colorTheme][2]);
