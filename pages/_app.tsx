@@ -31,7 +31,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </ThemeProvider>
         </PopupProvider>
       </PersistGate>
-    </Provider>
+    </Provider> 
   );
 };
 
