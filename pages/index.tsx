@@ -9,7 +9,7 @@ const HomePage = () => {
   const loggedIn = useSelector((state: StoreType) => state.auth.loggedIn);
   return (
     <div>
-      {loggedIn ? (
+      {loggedIn ? ( 
         <AuthenticatedHomePage/>
       ) : (
         <UnauthenticatedHomePage/>
