@@ -9,9 +9,10 @@ interface UserAccountFormProps {
   setShowAlert: (param: boolean) => void; 
   setAlertMessage: (param: string) => void; 
   setAlertType: (param: AlertColor) => void;
+  closePopupAndAlert: () => void;
 }
 
-const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMessage, setAlertType }: UserAccountFormProps) => {
+const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMessage, setAlertType, closePopupAndAlert }: UserAccountFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState(currentName);
   const [email, setEmail] = useState(currentEmail);
@@ -73,6 +74,7 @@ const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMess
             <Button variant="contained" type="submit">
               Edit Account
             </Button>
+            <Button variant="contained" onClick={closePopupAndAlert}>Close</Button>
           </Box>
         </Grid>
       </Grid>

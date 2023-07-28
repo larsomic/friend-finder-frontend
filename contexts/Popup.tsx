@@ -54,16 +54,16 @@ const Popup: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showAlert]);
 
-  const renderContent = () => {
+  const renderContent = (closePopupAndAlert: () => void) => {
     switch (popupContent) {
       case 'account':
-        return <AccountPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
+        return <AccountPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} closePopupAndAlert={closePopupAndAlert}/>;
       case 'logout':
         return <LogoutPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} showAlert={showAlert}/>;
       case 'login':
         return <LoginPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'signup':
-        return <SignupPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
+        return <SignupPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} closePopupAndAlert={closePopupAndAlert}/>;
       case 'friend-preferences':
         return <FriendPreferencesPopupContent closePopup={closePopupAndAlert} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'settings':
@@ -82,10 +82,7 @@ const Popup: React.FC = () => {
           </Alert>
         </Grid>
       )}
-      <DialogContent>{renderContent()}</DialogContent>
-      <DialogActions>
-        <Button onClick={closePopup}>Close</Button>
-      </DialogActions>
+      <DialogContent>{renderContent(closePopupAndAlert)}</DialogContent>
     </Dialog>
   );
 };

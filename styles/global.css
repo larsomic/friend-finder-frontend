@@ -85,3 +85,12 @@ body {
 #e{
   color:var(--color5) 
 }
+
+.no-background-alert{
+  background: none !important;
+  font-size: 0.7rem;
+}
+
+.grid-no-padding-top{
+  padding-top: 0 !important;
+}

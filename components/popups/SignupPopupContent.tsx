@@ -8,9 +8,10 @@ interface SignUpPopupContentProps {
   setShowAlert: (param: boolean) => void; 
   setAlertMessage: (param: string) => void; 
   setAlertType: (param: AlertColor) => void;
+  closePopupAndAlert: ()=> void;
 }
 
-const SignupPopupContent = ({ setShowAlert, setAlertMessage, setAlertType }:SignUpPopupContentProps) => {
+const SignupPopupContent = ({ setShowAlert, setAlertMessage, setAlertType, closePopupAndAlert }:SignUpPopupContentProps) => {
   const popupContext = useContext(PopupContext);
   
   const handleSignup = () => {
@@ -19,7 +20,7 @@ const SignupPopupContent = ({ setShowAlert, setAlertMessage, setAlertType }:Sign
 
   return (
     <div>
-      <SignupForm onSignup={handleSignup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType}/>
+      <SignupForm onSignup={handleSignup} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} closePopupAndAlert={closePopupAndAlert}/>
     </div>
   );
 };

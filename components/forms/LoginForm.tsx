@@ -58,10 +58,10 @@ const LoginForm = ({ onLogin, setShowAlert, setAlertMessage, setAlertType }: Log
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth type="email" value={email} autoFocus onChange={(e) => setEmail(e.target.value)}/>
+          <TextField className="outlined-basic" label="Email" variant="outlined" fullWidth type="email" value={email} autoFocus onChange={(e) => setEmail(e.target.value)}/>
         </Grid>
         <Grid item xs={12}>
-          <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth type="password" value={password} autoComplete='new-password' onChange={(e) => setPassword(e.target.value)}/>
+          <TextField className="outlined-basic" label="Password" variant="outlined" fullWidth type="password" value={password} autoComplete='new-password' onChange={(e) => setPassword(e.target.value)}/>
         </Grid>
         <Grid item xs={12}>
           <Box textAlign="center">
