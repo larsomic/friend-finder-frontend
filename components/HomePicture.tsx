@@ -18,7 +18,7 @@ const UnauthenticatedHomePage = () => {
                 <img src={`/images/${imagePath}.jpg`} alt="Description of image" />
             </picture>
             <div className='textContainer'>
-                <Typography className='color5 Montserrat' variant="h2">{textShown}</Typography>
+                <Typography className='color4    Montserrat' variant="h2">{textShown}</Typography>
             </div>
         </div>
     );
