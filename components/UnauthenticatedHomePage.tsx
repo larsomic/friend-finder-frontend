@@ -1,38 +1,14 @@
-import BottomInfoBar from './BottomInfoBar'
-import HeaderBar from './HeaderBar'
-import Popup from '../contexts/Popup'
+import BottomInfoBar from './BottomInfoBar';
+import HeaderBar from './HeaderBar';
+import Popup from '../contexts/Popup';
+import HomePicture from './HomePicture'
 
 const UnauthenticatedHomePage = () => {
-  
   return (
-    <div>
-      <HeaderBar/>
+    <div className='UnauthenticatedHomePage'>
+      <HeaderBar />
       <Popup />
-      <div id='a'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
+      <HomePicture/>
       <BottomInfoBar/>
     </div>
   );

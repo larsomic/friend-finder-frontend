@@ -71,7 +71,7 @@ function HeaderBar() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'Montserrat',
               fontWeight: 700,
               color: 'var(--color4)',
               textDecoration: 'none',
@@ -125,7 +125,7 @@ function HeaderBar() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: 'Montserrat',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'var(--color4)',
