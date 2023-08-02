@@ -127,7 +127,7 @@ function HeaderBar() {
               flexGrow: 1,
               fontFamily: 'Montserrat',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: { xs: '.1rem', md: '.3rem' },
               color: 'var(--color4)',
               textDecoration: 'none',
             }}
