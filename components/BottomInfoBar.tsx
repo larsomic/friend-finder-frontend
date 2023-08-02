@@ -16,7 +16,7 @@ const Footer = () => {
         <Grid container spacing={isMobile ? 2 : 3}>
             {Object.entries(links).map(([category, linkGroup], index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-                <Typography sx={{color:'var(--color2)'}} variant="subtitle1" gutterBottom>
+                <Typography sx={{color:'var(--color4)'}} variant="subtitle1" gutterBottom>
                 {category}
                 </Typography>
                 {linkGroup.map((link, index) => (
