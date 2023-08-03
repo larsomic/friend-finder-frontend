@@ -134,6 +134,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-shadow: 4px 4px 4px var(--color1);
+  z-index: 2;
+  text-align: center;
 }
 
 .imageContainer img {
@@ -144,5 +146,16 @@ body {
 
 .Montserrat {
   font-family: Montserrat !important;
+}
+
+.header-placeholder {
+  display: block;
+  height: 64px;
+}
+
+@media screen and (max-width: 600px) {
+  .header-placeholder {
+    height: 48px; 
+  }
 }
 

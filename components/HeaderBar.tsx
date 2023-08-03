@@ -59,171 +59,173 @@ function HeaderBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: 'var(--color1)' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Diversity1TwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, color: 'var(--color4)', mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Montserrat',
-              fontWeight: 700,
-              color: 'var(--color4)',
-              textDecoration: 'none',
-              fontSize: { xs: '1.1rem', md: '1.3rem'}
-            }}
-          >
-            Friend Finder
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-            >
-              <MenuIcon sx={{ color: 'var(--color4)' }} />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <React.Fragment>
+      <AppBar position="sticky" sx={{ bgcolor: 'var(--color1)' }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Diversity1TwoToneIcon sx={{ display: { xs: 'none', md: 'flex' }, color: 'var(--color4)', mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
               sx={{
-                display: { xs: 'block', md: 'none' },
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'Montserrat',
+                fontWeight: 700,
+                color: 'var(--color4)',
+                textDecoration: 'none',
+                fontSize: { xs: '1.1rem', md: '1.3rem'}
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" sx={{ color: 'var(--color4)' }}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'Montserrat',
-              fontWeight: 700,
-              letterSpacing: { xs: '.1rem', md: '.3rem' },
-              color: 'var(--color4)',
-              textDecoration: 'none',
-            }}
-          >
-            Friend Finder
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'var(--color3)', display: 'block' }}
+              Friend Finder
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-          {loggedIn ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
+                <MenuIcon sx={{ color: 'var(--color4)' }} />
+              </IconButton>
               <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar-user" // Update the id to differentiate from the previous menu
-                anchorEl={anchorElUser} // Use anchorElUser instead of anchorElNav
+                id="menu-appbar"
+                anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: 'bottom',
+                  horizontal: 'left',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'right',
+                  horizontal: 'left',
                 }}
-                open={Boolean(anchorElUser)} // Use anchorElUser instead of anchorElNav
-                onClose={handleCloseUserMenu} // Use handleCloseUserMenu instead of handleCloseNavMenu
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
               >
-                {Object.entries(settings).map(([setting, handleClick]) => (
-                  <MenuItem key={setting} onClick={handleClick}>
-                    <Typography textAlign="center">{setting}</Typography>
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center" sx={{ color: 'var(--color4)' }}>{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-          ) : (
-            <Box>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
-                {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
-                  <MenuItem key={setting} onClick={handleClick}>
-                    <Typography textAlign="center" sx={{ color: 'var(--color4)' }}>{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Box>
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenMenu1}
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'Montserrat',
+                fontWeight: 700,
+                letterSpacing: { xs: '.1rem', md: '.3rem' },
+                color: 'var(--color4)',
+                textDecoration: 'none',
+              }}
+            >
+              Friend Finder
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'var(--color3)', display: 'block' }}
                 >
-                  <Diversity1TwoToneIcon sx={{ color: 'var(--color4)', mr: 1 }} />
-                </IconButton>
+                  {page}
+                </Button>
+              ))}
+            </Box>
+            {loggedIn ? (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" />
+                  </IconButton>
+                </Tooltip>
                 <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElMenu1}
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar-user" // Update the id to differentiate from the previous menu
+                  anchorEl={anchorElUser} // Use anchorElUser instead of anchorElNav
                   anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                   keepMounted
                   transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'left',
+                    horizontal: 'right',
                   }}
-                  open={Boolean(anchorElMenu1)}
-                  onClose={handleCloseUserMenu1}
-                  sx={{
-                    display: { xs: 'block', md: 'none' },
-                  }}
+                  open={Boolean(anchorElUser)} // Use anchorElUser instead of anchorElNav
+                  onClose={handleCloseUserMenu} // Use handleCloseUserMenu instead of handleCloseNavMenu
                 >
-                  {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
+                  {Object.entries(settings).map(([setting, handleClick]) => (
                     <MenuItem key={setting} onClick={handleClick}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
-            </Box>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+            ) : (
+              <Box>
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
+                  {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
+                    <MenuItem key={setting} onClick={handleClick}>
+                      <Typography textAlign="center" sx={{ color: 'var(--color4)' }}>{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Box>
+                <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleOpenMenu1}
+                  >
+                    <Diversity1TwoToneIcon sx={{ color: 'var(--color4)', mr: 1 }} />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorElMenu1}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    open={Boolean(anchorElMenu1)}
+                    onClose={handleCloseUserMenu1}
+                    sx={{
+                      display: { xs: 'block', md: 'none' },
+                    }}
+                  >
+                    {Object.entries(loggedOutItems).map(([setting, handleClick]) => (
+                      <MenuItem key={setting} onClick={handleClick}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </React.Fragment>
   );
 }
 
