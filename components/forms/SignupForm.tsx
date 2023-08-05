@@ -34,14 +34,7 @@ const AlertStyled = styled(Alert)(({ theme }) => ({
       fontSize: '1.2rem',
     },
     marginRight: '0.5rem', 
-  },
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  background: theme.palette.primary.main,
-  color: 'white',
-  '&:hover': {
-    background: theme.palette.primary.dark,
+    paddingBottom: '0 !important',
   },
 }));
 
@@ -186,45 +179,53 @@ const SignupForm = ({ onSignup, setShowAlert, setAlertMessage, setAlertType, clo
   return (
       <form onSubmit={handleSubmit}>
         <Grid container direction="column" spacing={2}>
-          <Grid item xs={12}>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
             <Box textAlign="center">
-              <h2 style={{ color: '#3f51b5' }}>Sign Up</h2>
+              <h2 style={{ color: 'var(--color1)' }}>Sign Up</h2>
             </Box>
           </Grid>
-          <Grid item xs={12} className="grid-no-padding-top">
-            <TextField className="outlined-basic" label="Name" variant="outlined" fullWidth type="text" value={name} autoFocus onChange={(e) => handleNameChange(e.target.value)} color={name !== "" ? 'success' : 'error' } error={!Boolean(name)}/>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center" className={'errorGrid'}>
+            <TextField className="outlined-basic" label="Name" variant="outlined" type="text" value={name} autoFocus onChange={(e) => handleNameChange(e.target.value)} color={name !== "" ? 'success' : 'error' } error={!Boolean(name)}/>
+          </Grid>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center" className={'errorGrid'}>
             { nameError ? 
             <AlertStyled  className={`no-background-alert`} severity="error">
               <Typography variant="caption">{nameError}</Typography>
             </AlertStyled> :<></>}
           </Grid>
-          <Grid item xs={12} className="grid-no-padding-top">
-            <TextField className="outlined-basic" label="Email" variant="outlined" fullWidth type="email" value={email} onChange={(e) => handleEmailChange(e.target.value)} error={Boolean(emailError)} color={!Boolean(emailError) ? 'success' : 'error' }/>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
+            <TextField className="outlined-basic" label="Email" variant="outlined" type="email" value={email} onChange={(e) => handleEmailChange(e.target.value)} error={Boolean(emailError)} color={!Boolean(emailError) ? 'success' : 'error' }/>
+          </Grid>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center" className={'errorGrid'}>
             { emailError ? 
             <AlertStyled  className={`no-background-alert`} severity="error">
               <Typography variant="caption">{emailError}</Typography>
             </AlertStyled> :<></>}
           </Grid>
-          <Grid item xs={12} className="grid-no-padding-top">
-            <TextField className="outlined-basic" label="Password" variant="outlined" fullWidth type="password" value={password} onChange={(e) => handlePasswordChange(e.target.value)} error={Boolean(passwordError.length)} color={!Boolean(passwordError.length) ? 'success' : 'error' }/>
-            { passwordError.length > 0 && passwordError.map((error, index) =>
-              <AlertStyled  key={index} className={`no-background-alert`} severity="error">
-                <Typography variant="caption">{error}</Typography>
-              </AlertStyled>
-            )}
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
+            <TextField className="outlined-basic" label="Password" variant="outlined" type="password" value={password} onChange={(e) => handlePasswordChange(e.target.value)} error={Boolean(passwordError.length)} color={!Boolean(passwordError.length) ? 'success' : 'error' }/>
           </Grid>
-          <Grid item xs={12} className="grid-no-padding-top">
-            <TextField className="outlined-basic" label="Password Again" variant="outlined" fullWidth type="password" value={passwordAgain} onChange={(e) => handlePasswordAgainChange(e.target.value)} error={Boolean(passwordAgainError)} color={!Boolean(passwordAgainError) ? 'success' : 'error' }/>
+            { passwordError.length > 0 && passwordError.map((error, index) =>
+              <Grid item xs={12} display="flex" justifyContent="center" alignItems="center" key={index} className={'errorGrid'}>
+                <AlertStyled  key={index} className={`no-background-alert`} severity="error">
+                  <Typography variant="caption">{error}</Typography>
+                </AlertStyled>
+              </Grid>
+            )}
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
+            <TextField className="outlined-basic" label="Password Again" variant="outlined" type="password" value={passwordAgain} onChange={(e) => handlePasswordAgainChange(e.target.value)} error={Boolean(passwordAgainError)} color={!Boolean(passwordAgainError) ? 'success' : 'error' }/>
+          </Grid>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
             { passwordAgainError ? 
             <AlertStyled  className={`no-background-alert`} severity="error">
               <Typography variant="caption">{passwordAgainError}</Typography>
             </AlertStyled> :<></>}
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
             <Box textAlign="center">
-              <StyledButton variant="contained" type="submit">
+              <Button variant="contained" type="submit">
                 Sign Up
-              </StyledButton>
+              </Button>
             </Box>
           </Grid>
         </Grid>

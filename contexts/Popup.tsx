@@ -7,9 +7,7 @@ import LoginPopupContent from '../components/popups/LoginPopupContent';
 import SignupPopupContent from '../components/popups/SignupPopupContent';
 import SettingsPopupContent from '../components/popups/SettingsPopupContent';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { AlertColor, Grid, Alert } from '@mui/material';
@@ -74,7 +72,7 @@ const Popup: React.FC = () => {
   };
 
   return (
-    <Dialog open={isPopupOpen} TransitionComponent={Transition} onClose={closePopup}>
+    <Dialog open={isPopupOpen} TransitionComponent={Transition} onClose={closePopup} scroll={'body'} fullWidth={true} maxWidth={'sm'}>
       {showAlert && (
         <Grid item xs={12}>
           <Alert severity={alertType} onClose={handleAlertClose}>
