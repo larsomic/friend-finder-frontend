@@ -8,7 +8,12 @@
   --color2: #1B2A41;
   --color3: #324A5F;
   --color4: #839788;
-  --color5: #EDEBD7;
+  --color5: #edebd7;
+  --color1-30: rgba(12, 24, 33, 0.3);
+  --color2-30: rgba(27, 42, 65, 0.3);
+  --color3-30: rgba(50, 74, 95, 0.3);
+  --color4-30: rgba(131, 151, 136, 0.3);
+  --color5-30: rgba(237, 235, 215, 0.3);
   color: var(--light-dark-color-1);
   background-color: var(--light-dark-color-2);
 }
@@ -90,10 +95,6 @@ body {
   font-size: 0.7rem;
 }
 
-.grid-no-padding-top {
-  padding-top: 0 !important;
-}
-
 .vignette {
   position: relative;
   overflow: hidden;
@@ -159,3 +160,21 @@ body {
   }
 }
 
+.MuiDialogContent-root{
+  background-color: var(--color5);
+}
+
+.MuiTextField-root{
+  background-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.errorGrid{
+  padding-top: 0 !important;
+}
