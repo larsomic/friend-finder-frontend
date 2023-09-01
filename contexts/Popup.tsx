@@ -6,6 +6,7 @@ import LogoutPopupContent from '../components/popups/LogoutPopupContent';
 import LoginPopupContent from '../components/popups/LoginPopupContent';
 import SignupPopupContent from '../components/popups/SignupPopupContent';
 import SettingsPopupContent from '../components/popups/SettingsPopupContent';
+import UserViewerPopupContent from '../components/popups/UserViewerPopupContent';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Slide from '@mui/material/Slide';
@@ -26,7 +27,8 @@ const Popup: React.FC = () => {
   if (!popupContext) {
     throw new Error("PopupContext is undefined, make sure you're using the PopupProvider");
   }
-  const { isPopupOpen, popupContent, closePopup } = popupContext;
+
+  const { isPopupOpen, popupContent, closePopup, extraData } = popupContext;
 
   const [showAlert, setShowAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
@@ -52,7 +54,7 @@ const Popup: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showAlert]);
 
-  const renderContent = (closePopupAndAlert: () => void) => {
+  const renderContent = (closePopupAndAlert: () => void, extraData: any) => {
     switch (popupContent) {
       case 'account':
         return <AccountPopupContent setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} closePopupAndAlert={closePopupAndAlert}/>;
@@ -66,6 +68,8 @@ const Popup: React.FC = () => {
         return <FriendPreferencesPopupContent closePopup={closePopupAndAlert} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
       case 'settings':
         return <SettingsPopupContent closePopup={closePopupAndAlert} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} />;
+      case 'user-viewer':
+        return <UserViewerPopupContent closePopup={closePopupAndAlert} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} userToken={extraData}/>;
       default:
         return null;
     }
@@ -80,7 +84,7 @@ const Popup: React.FC = () => {
           </Alert>
         </Grid>
       )}
-      <DialogContent>{renderContent(closePopupAndAlert)}</DialogContent>
+      <DialogContent>{renderContent(closePopupAndAlert, extraData)}</DialogContent>
     </Dialog>
   );
 };

@@ -15,6 +15,7 @@ interface MultiSelectCheckmarksProps {
   options: string[];
   value: string[];
   onChange: (value: string[]) => void;
+  disabled: boolean;
 }
 
 const MultiSelectCheckmarks: React.FC<MultiSelectCheckmarksProps> = ({
@@ -22,6 +23,7 @@ const MultiSelectCheckmarks: React.FC<MultiSelectCheckmarksProps> = ({
   options,
   value,
   onChange,
+  disabled
 }) => {
   const [selectedOptions, setSelectedOptions] = React.useState<string[]>([]);
 
@@ -59,6 +61,7 @@ const MultiSelectCheckmarks: React.FC<MultiSelectCheckmarksProps> = ({
         renderValue={(selected) =>
           selected.length === options.length ? 'Everyone' : (selected as string[]).join(', ')
         }
+        disabled={disabled}
       >
         <MenuItem value="Everyone">
           <Checkbox checked={selectedOptions.length === options.length} />

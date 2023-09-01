@@ -11,9 +11,10 @@ interface FriendPreferencesFormProps {
   setShowAlert: (param: boolean) => void; 
   setAlertMessage: (param: string) => void; 
   setAlertType: (param: AlertColor) => void;
+  isDemoUser: boolean;
 }
 
-const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit, setShowAlert, setAlertMessage, setAlertType }: FriendPreferencesFormProps) => {
+const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit, setShowAlert, setAlertMessage, setAlertType, isDemoUser }: FriendPreferencesFormProps) => {
   const [inPersonPreference, setInPersonPreference] = useState('inperson');
   const [miles, setMiles] = useState<number | string | Array<number | string>>(30);
   const [attractedTo, setAttractedTo] = useState<string[]>([]);
@@ -96,25 +97,21 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit,
     }
   };
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
   return (
     <form onSubmit={handleSubmit}>
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <Typography>Edit Preferences</Typography>
+            <h2 className='noMarginBottom'>Edit Preferences</h2>
           </Box>
         </Grid>
+        { isDemoUser?
+          <Grid item xs={12}>
+            <Box textAlign="center">
+              <h4 className='noMargin'>*You cannot edit user account in demo mode*</h4>
+            </Box>
+          </Grid> : <></>
+        }
         <Grid item xs={12}>
           <ToggleButtonGroup
             color="primary"
@@ -122,6 +119,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit,
             exclusive
             onChange={handleAlignmentChange}
             aria-label="Platform"
+            disabled={isDemoUser}
           >
             <ToggleButton value="inperson">In Person</ToggleButton>
             <ToggleButton value="remote">Remote</ToggleButton>
@@ -133,6 +131,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit,
               value={typeof miles === 'number' ? miles : 1}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
+              disabled={isDemoUser}
             />
           </Grid>
           <Grid item>
@@ -141,6 +140,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit,
               size="small"
               onChange={handleInputChange}
               onBlur={handleBlur}
+              disabled={isDemoUser}
               inputProps={{
                 step: 1,
                 min: 1,
@@ -157,6 +157,7 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit,
             options={attractedToOptions}
             value={attractedTo}
             onChange={(value: string[] | string) => setAttractedTo(value as string[])}
+            disabled={isDemoUser}
           />
         </Grid>
         <Grid item xs={12}>
@@ -165,11 +166,12 @@ const FriendPreferencesForm: React.FC<FriendPreferencesFormProps> = ({ onSubmit,
             options={religionOptions}
             value={religion}
             onChange={(value: string[] | string) => setReligion(value as string[])}
+            disabled={isDemoUser}
           />
         </Grid>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" disabled={isDemoUser}>
               Save
             </Button>
           </Box>

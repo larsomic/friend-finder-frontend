@@ -12,13 +12,13 @@ interface AccountPopupContentProps {
 
 const AccountPopupContent = ({ setShowAlert, setAlertMessage, setAlertType, closePopupAndAlert }: AccountPopupContentProps) => {
   const user = useSelector((state: StoreType) => state.user);
-  const { name = '', email='' } = user;
+  const { name = '', email='', isDemoUser = false } = user;
   const currentName = name === null ? '' : name;
   const currentEmail = email === null ? '' : email;
   
   return (
     <div>
-      <UserAccountForm currentName={currentName} currentEmail={currentEmail} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} closePopupAndAlert={closePopupAndAlert}/>
+      <UserAccountForm currentName={currentName} currentEmail={currentEmail} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} setAlertType={setAlertType} closePopupAndAlert={closePopupAndAlert} isDemoUser={isDemoUser}/>
     </div>
   );
 };

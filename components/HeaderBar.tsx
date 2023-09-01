@@ -4,17 +4,20 @@ import Diversity1TwoToneIcon from '@mui/icons-material/Diversity1TwoTone';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import type { StoreType } from '../redux/store_type';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import axios from 'axios';
 import { PopupContext } from '../contexts/PopupContext';
+import { useDispatch } from 'react-redux';
+
+axios.defaults.withCredentials = true;
 
 function HeaderBar() {
-  const router = useRouter();
   const state = useSelector((state: StoreType) => state);
   const popupContext = useContext(PopupContext);
   if (!popupContext) {
     throw new Error("PopupContext is undefined, make sure you're using the PopupProvider");
   }
   const { isPopupOpen, openPopup } = popupContext;
+  const dispatch = useDispatch();
 
   const loggedIn = state.auth.loggedIn;
 
@@ -53,7 +56,17 @@ function HeaderBar() {
     'Logout': () => { openPopup('logout'); handleCloseUserMenu(); },
   };
 
+  const handleDemo = async () =>  {
+    try {
+        await axios.post(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/auth/demo");
+        dispatch({ type: 'DEMO' });
+    } catch (error) {
+        console.log("Error when starting demo.");
+    }
+  };
+
   const loggedOutItems = {
+    'Demo': () => { handleDemo(); },
     'Sign Up': () => { openPopup('signup'); },
     'Login': () => { openPopup('login'); },
   };
@@ -150,7 +163,8 @@ function HeaderBar() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" />
+                    <Avatar alt={state.user.name || "NA"} />
+                    {/* <Avatar alt={state.user.name || "NA"} src="/static/images/avatar/2.jpg" /> */}
                   </IconButton>
                 </Tooltip>
                 <Menu

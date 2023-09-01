@@ -1,6 +1,6 @@
-export const setUserInfo = (name: string, email: string) => ({
+export const setUserInfo = (name: string, email: string, isDemoUser: boolean) => ({
     type: 'UPDATE_USER_INFO' as const, 
-    payload: { name, email },
+    payload: { name, email, isDemoUser },
   });
 
 export const setUserSettings = (darkMode: boolean, selectedColor:string) => ({

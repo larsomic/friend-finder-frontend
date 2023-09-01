@@ -14,9 +14,8 @@ const requiredMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>)
       if (!state.user.name) {
         try {
           const response = await axios.get(process.env.NEXT_PUBLIC_BASE_API_URL + "/api/user");
-          console.log('Response status:', response.status);
           if (response.status == 200) {
-            store.dispatch(setUserInfo(response.data.name, response.data.email ));
+            store.dispatch(setUserInfo(response.data.name, response.data.email, response.data.isDemoUser ));
           }
         } catch (error: any) {
           if (error.response.status == 401) {

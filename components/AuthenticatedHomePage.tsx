@@ -4,7 +4,7 @@ import Popup from '../contexts/Popup'
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { StoreType } from '../redux/store_type';
-import MatchesViewer from './MatchesViewer';
+import MatchesViewer from './ShortlistViewer';
 
 const AuthenticatedHomePage = () => {
   const user = useSelector((state: StoreType) => state.user);
@@ -19,32 +19,7 @@ const AuthenticatedHomePage = () => {
       <HeaderBar />
       <Popup />
       <div>Hey {name}, lets get you some friends.</div>
-      <div id='a'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      <div id='b'>MIKEEEE</div>
-      <div id='c'>MIKEEEE</div>
-      <div id='d'>MIKEEEE</div>
-      <div id='e'>MIKEEEE</div>
-      {/* <MatchesViewer/> */}
+      <MatchesViewer isDemoUser={user.isDemoUser}/>
       <BottomInfoBar />
     </div>
   );

@@ -12,6 +12,8 @@ const authReducer = (state = { loggedIn: false }, action: LoginActions) => {
       return { ...state, loggedIn: false };
     case 'SIGNED_UP':
       return { ...state, loggedIn: true };
+    case 'DEMO':
+      return { ...state, loggedIn: true };
     case 'RESET_STORE':
       return { loggedIn: null}; 
     default:
@@ -19,14 +21,16 @@ const authReducer = (state = { loggedIn: false }, action: LoginActions) => {
   }
 };
 
-const userReducer = (state = { name: null, email: null }, action: UserActions) => {
+const userReducer = (state = { name: null, email: null, isDemoUser: null }, action: UserActions) => {
   switch (action.type) {
     case 'GET_USER_INFO':
-      return { ...state, name: action.payload?.name, email: action.payload?.email };
+      return { ...state, name: action.payload?.name, email: action.payload?.email, isDemoUser: action.payload?.isDemoUser };
     case 'UPDATE_USER_INFO':
-      return { ...state, name: action.payload?.name, email: action.payload?.email };
+      return { ...state, name: action.payload?.name, email: action.payload?.email, isDemoUser: action.payload?.isDemoUser };
     case 'RESET_STORE':
-      return { name: null, email: null }; 
+      return { name: null, email: null, isDemoUser: false }; 
+    case 'DEMO':
+      return { isDemoUser: true }; 
     default:
       return state;
   }

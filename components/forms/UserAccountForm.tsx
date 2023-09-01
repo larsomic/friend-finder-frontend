@@ -10,9 +10,10 @@ interface UserAccountFormProps {
   setAlertMessage: (param: string) => void; 
   setAlertType: (param: AlertColor) => void;
   closePopupAndAlert: () => void;
+  isDemoUser: boolean;
 }
 
-const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMessage, setAlertType, closePopupAndAlert }: UserAccountFormProps) => {
+const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMessage, setAlertType, closePopupAndAlert, isDemoUser }: UserAccountFormProps) => {
   const dispatch = useDispatch();
   const [name, setName] = useState(currentName);
   const [email, setEmail] = useState(currentEmail);
@@ -45,9 +46,16 @@ const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMess
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <h2>Edit Account</h2>
+            <h2 className='noMarginBottom'>Edit Account</h2>
           </Box>
         </Grid>
+        { isDemoUser?
+          <Grid item xs={12}>
+            <Box textAlign="center">
+              <h4 className='noMargin'>*You cannot edit user account in demo mode*</h4>
+            </Box>
+          </Grid> : <></>
+        }
         <Grid item xs={12}>
           <TextField
             label="Name"
@@ -57,6 +65,7 @@ const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMess
             value={name}
             autoFocus
             onChange={(e) => setName(e.target.value)}
+            disabled={isDemoUser}
           />
         </Grid>
         <Grid item xs={12}>
@@ -66,12 +75,13 @@ const UserAccountForm = ({ currentName, currentEmail, setShowAlert, setAlertMess
             fullWidth
             type="email"
             value={email}
+            disabled={isDemoUser}
             onChange={(e) => setEmail(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <Box textAlign="center">
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" disabled={isDemoUser} style={{ marginRight: '30px' }}>
               Edit Account
             </Button>
             <Button variant="contained" onClick={closePopupAndAlert}>Close</Button>

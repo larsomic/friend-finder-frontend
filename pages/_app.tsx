@@ -60,7 +60,7 @@ createTheme({
     MuiList:{
       styleOverrides:{
         root:{
-          'background-color': 'var(--color5)  ',
+          backgroundColor: 'var(--color5)  ',
         }
       }
     }
